@@ -3,7 +3,20 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  /*keycloakConfig : {
+    'url': 'http://app.dastan.eng.it:6060/auth',
+    'realm': 'Finance',
+    'clientId': 'AnubisAuth'
+  },*/
+  keycloakConfig : {
+    'url': 'http://localhost:7070/auth',
+    'realm': 'Finance',
+    'clientId': 'AnubisAuth'
+  },
+  urlDockerProxy : "http://localhost:8080/dockerProxy_war",
+  methodLoginPortainer :  "/loginPortainer",
+  methodListContainers : "/listContainers"
 };
 
 /*

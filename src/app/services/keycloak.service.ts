@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment.prod';
 
 declare var Keycloak: any;
 
@@ -12,12 +13,7 @@ export class KeycloakService {
   private keycloakAuth: any;
 init(): Promise<any> {
  return new Promise((resolve, reject) => {
-    const config = {
-      'url': 'http://app.dastan.eng.it:6060/auth',
-      'realm': 'Finance',
-      'clientId': 'AnubisAuth'
-    };
-    this.keycloakAuth = new Keycloak(config);
+    this.keycloakAuth = new Keycloak(environment.keycloakConfig);
     this.keycloakAuth.init({ onLoad: 'login-required' })
       .success(() => {
         resolve();
@@ -28,6 +24,13 @@ init(): Promise<any> {
     });
 }
 getToken(): string {
+  //console.log("getToken");
+  //console.log(this.keycloakAuth.tokenParsed["axepta"]);
   return this.keycloakAuth.token;
 }
+
+logout(){
+  this.keycloakAuth.logout();
+}
+
 }
