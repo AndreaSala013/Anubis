@@ -20,32 +20,51 @@ export class HomePageComponent implements OnInit {
     private keyServ: KeycloakService,
     private portainerServ: PortainerService) { }
 
-  async ngOnInit() {
-    this.isLoading = true;
-    await this.delay(5000);
+  async ngOnInit() {  
     if(this.storage.get(AppUtils.PORTAINER_TOKENS)==null){
-      await this.getPortainerToken();
+      await this.getPortainerTokenAndListContainers();
+    }else{
+      this.isLoading = true;
+      let containersListOk = await this.getContainerList();  
+      if(!containersListOk){
+        this.saveInLocalStorage(null);
+        await this.getPortainerTokenAndListContainers();
+      }
+      this.isLoading = false;
     }
-    await this.getContainerList();
+  }
+
+  async getPortainerTokenAndListContainers(){
+    this.isLoading = true;
+    let portainerTokenOk = await this.getPortainerToken();
+    if(!portainerTokenOk){
+      alert("Errore durante il recupero del token di portainer");
+    }
+    else{
+      let containersListOk = await this.getContainerList();
+      if(!containersListOk){
+        alert("Errore durante il recupero della lista containers");
+      }
+    }   
     this.isLoading = false;
   }
 
-  async getPortainerToken(){
+  async getPortainerToken(): Promise<boolean>{
     console.log("HOMEPAGE: getPortainerToken");
     let proxyResp = await this.portainerServ.getPortainerToken();
     if(proxyResp == null || proxyResp.status != 200){
-      this.isLoading = false;
-      alert("Errore durante il recupero del token di portainer");
+      return false; 
     }else{
       this.saveInLocalStorage(JSON.parse(proxyResp.message)['jwt']);
+      return true;
     }
   }
 
-  async getContainerList(){
+  async getContainerList():Promise<boolean>{
     console.log("HOMEPAGE: getContainerList");
     let proxyResp = await this.portainerServ.getContainerList(this.storage.get(AppUtils.PORTAINER_TOKENS));
     if(proxyResp == null || proxyResp.status != 200){
-      alert("Errore durante il recupero della lista containers");
+      return false;
     }else{
       let containersArray = JSON.parse(proxyResp.message);
       containersArray.forEach(element => {
@@ -53,15 +72,12 @@ export class HomePageComponent implements OnInit {
         container.id = element['Id'];
         container.status = element['State'];
         container.name = element['Names'][0];
+        container.name = container.name.substr(1);
         this.containerList.push(container);
-        console.log(element);
       });
+      return true;
     }
   }
-
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-}
 
   saveInLocalStorage(portainerToken){
     console.log(portainerToken);

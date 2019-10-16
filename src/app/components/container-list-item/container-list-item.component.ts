@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Container } from 'src/app/model/Container';
 import { concatAll } from 'rxjs/operators';
+import { AppUtils } from 'src/app/utils/AppUtils';
 
 @Component({
   selector: 'app-container-list-item',
@@ -9,38 +10,37 @@ import { concatAll } from 'rxjs/operators';
 })
 export class ContainerListItemComponent implements OnInit {
 
-  
-hover : boolean = false;
-
 @Input('container') container:Container;
+@Output() newState = new EventEmitter<Container>();
 
+hover : boolean = false;
 isPlayVisible: boolean = false; 
 isStopVisible : boolean = false;
 
 constructor() { }
 
 ngOnInit() {
-  if(this.container.status == "running"){
+  if(this.container.status == AppUtils.CONTAINER_RUNNING){
     this.isStopVisible = true;
+    this.isPlayVisible = false;
+  }
+  if(this.container.status == AppUtils.CONTAINER_EXITED){
+    this.isStopVisible = false;
+    this.isPlayVisible = true;
   }
 }
 
-buttonPlayClick(){
-  this.isStopVisible = true;
-  this.isPlayVisible = false;
-}
-
-buttonStopClick(){
-  this.isStopVisible = false;
-  this.isPlayVisible = true;
+buttonActionClick(){
+  this.newState.emit(this.container);
 }
 
 
-  public stopPropagationHover(event: any): void
-  {
-    this.hover=false;
-    event.stopPropagation();
-  }
+
+public stopPropagationHover(event: any): void
+{
+  this.hover=false;
+  event.stopPropagation();
+}
 
 
 }

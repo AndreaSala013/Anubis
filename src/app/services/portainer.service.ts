@@ -46,4 +46,12 @@ export class PortainerService {
       return null;
     });
   }
+
+  startContainer(idContainer){
+
+  }
+
+  stopContainer(idContainer){
+    
+  }
 }
