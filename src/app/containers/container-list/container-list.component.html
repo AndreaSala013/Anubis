@@ -1,7 +1,19 @@
 <div class="container mt-3">
-        <div *ngFor="let item of containerList">   
-                <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+
+        <div *ngIf="!isLoading; else notLoading">
+                <div *ngFor="let item of containerList">   
+                         <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+                </div>
         </div>
+        <ng-template #notLoading>
+                        <div class="row h-100 justify-content-center align-items-center">
+                                        <div class="col-3 text-center" >
+                                            <app-loader [viewText]="false"></app-loader>
+                                    </div>
+                                </div>
+        </ng-template>
+        
 </div>
+
     
     

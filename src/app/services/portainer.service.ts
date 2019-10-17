@@ -28,6 +28,7 @@ export class PortainerService {
 
   getContainerList(jwtToken):Promise<ProxyResponse> {
     console.log("PORTAINERSERVICE: getContainerList");
+    console.log(jwtToken);
     let url = environment.urlDockerProxy + environment.methodListContainers;
     let params = new HttpParams()
     .set("jwtToken", jwtToken)
@@ -47,11 +48,43 @@ export class PortainerService {
     });
   }
 
-  startContainer(idContainer){
-
+  startContainer(jwtToken,idContainer):Promise<ProxyResponse>{
+    console.log("PORTAINERSERVICE: startContainer");
+    let url = environment.urlDockerProxy + environment.methodStartContainers;
+    let params = new HttpParams()
+    .set("jwtToken", jwtToken)
+    .set("idContainer",idContainer);  
+    let headers = new HttpHeaders()
+    .set("Content-Type","application/x-www-form-urlencoded");
+    return this.http
+    .post(url,params, {headers})
+    .pipe(
+      tap(value=>console.log(value))
+    )
+    .toPromise()
+    .catch(err=>{
+      console.log(err);
+      return null;
+    });
   }
 
-  stopContainer(idContainer){
-    
+  stopContainer(jwtToken,idContainer):Promise<ProxyResponse>{
+    console.log("PORTAINERSERVICE: stopContainer");
+    let url = environment.urlDockerProxy + environment.methodStopContainers;
+    let params = new HttpParams()
+    .set("jwtToken", jwtToken)
+    .set("idContainer",idContainer);  
+    let headers = new HttpHeaders()
+    .set("Content-Type","application/x-www-form-urlencoded");
+    return this.http
+    .post(url,params, {headers})
+    .pipe(
+      tap(value=>console.log(value))
+    )
+    .toPromise()
+    .catch(err=>{
+      console.log(err);
+      return null;
+    });
   }
 }

@@ -12,5 +12,7 @@ export const environment = {
   },
   urlDockerProxy : "http://localhost:8080/dockerProxy_war",
   methodLoginPortainer :  "/loginPortainer",
-  methodListContainers : "/listContainers"
+  methodListContainers : "/listContainers",
+  methodStartContainers : "/startContainer",
+  methodStopContainers : "/stopContainer",
 };

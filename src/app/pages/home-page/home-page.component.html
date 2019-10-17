@@ -6,7 +6,7 @@
         </div>
 </div>
 <ng-template #notLoading>
-    <app-navbar></app-navbar>
+    <app-navbar (logout)="onLogout()"></app-navbar>
     <app-container-list [containerList]="containerList"></app-container-list>
   </ng-template>
 

@@ -1,4 +1,4 @@
-import {  OnInit, Component } from '@angular/core';
+import {  OnInit, Component, Output, EventEmitter } from '@angular/core';
 import { KeycloakService } from 'src/app/services/keycloak.service';
 import { Router } from '@angular/router';
 
@@ -9,14 +9,15 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private keycloakServ:KeycloakService, private router:Router) { }
+  @Output() logout = new EventEmitter();
+
+  constructor() { }
 
   ngOnInit() {
   }
 
-  logout(){
-    this.keycloakServ.logout();
-    this.router.navigate(['/']);
+  logoutClick(){
+    this.logout.emit();
   }
 
 }

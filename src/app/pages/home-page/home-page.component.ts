@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 import { PortainerService } from 'src/app/services/portainer.service';
 import { KeycloakService } from 'src/app/services/keycloak.service';
 import { AppUtils } from 'src/app/utils/AppUtils';
 import { Container } from 'src/app/model/Container';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -12,41 +12,47 @@ import { Container } from 'src/app/model/Container';
 })
 export class HomePageComponent implements OnInit {
 
+  retry :boolean;
   isLoading :boolean;
   containerList : Container[] = [];
 
   constructor(
-    @Inject(LOCAL_STORAGE) private storage: WebStorageService,
+    private router:Router,
+    private appUtils:AppUtils,
     private keyServ: KeycloakService,
     private portainerServ: PortainerService) { }
 
   async ngOnInit() {  
-    if(this.storage.get(AppUtils.PORTAINER_TOKENS)==null){
+    this.retry = true;
+    if(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS)==null){
       await this.getPortainerTokenAndListContainers();
     }else{
       this.isLoading = true;
-      let containersListOk = await this.getContainerList();  
-      if(!containersListOk){
-        this.saveInLocalStorage(null);
-        await this.getPortainerTokenAndListContainers();
-      }
+      await this.getContainerList();  
       this.isLoading = false;
     }
   }
 
-  async getPortainerTokenAndListContainers(){
+  async getPortainerTokenAndListContainers():Promise<boolean>{
+    console.log("HOMEPAGE: getPortainerTokenAndListContainers");
+    this.appUtils.saveInLocalStorage(AppUtils.PORTAINER_TOKENS,null);
     this.isLoading = true;
     let portainerTokenOk = await this.getPortainerToken();
     if(!portainerTokenOk){
       alert("Errore durante il recupero del token di portainer");
+      this.isLoading = false;
+      return false;
     }
     else{
       let containersListOk = await this.getContainerList();
       if(!containersListOk){
         alert("Errore durante il recupero della lista containers");
+        this.isLoading = false;
+        return false;
       }
     }   
     this.isLoading = false;
+    return true;
   }
 
   async getPortainerToken(): Promise<boolean>{
@@ -55,17 +61,27 @@ export class HomePageComponent implements OnInit {
     if(proxyResp == null || proxyResp.status != 200){
       return false; 
     }else{
-      this.saveInLocalStorage(JSON.parse(proxyResp.message)['jwt']);
+      this.appUtils.saveInLocalStorage(AppUtils.PORTAINER_TOKENS,JSON.parse(proxyResp.message)['jwt']);
+      console.log(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS));
       return true;
     }
   }
 
   async getContainerList():Promise<boolean>{
     console.log("HOMEPAGE: getContainerList");
-    let proxyResp = await this.portainerServ.getContainerList(this.storage.get(AppUtils.PORTAINER_TOKENS));
-    if(proxyResp == null || proxyResp.status != 200){
+    console.log(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS));
+    let proxyResp = await this.portainerServ.getContainerList(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS));
+    if(proxyResp == null){
       return false;
-    }else{
+    }
+    else if(proxyResp.status != 200){
+      if(proxyResp.message == AppUtils.PORTAINER_INVALID_TOKEN && this.retry){
+        this.retry = false;
+        return await this.getPortainerTokenAndListContainers();
+      }
+      return false;
+    }
+    else{
       let containersArray = JSON.parse(proxyResp.message);
       containersArray.forEach(element => {
         let container = new Container;
@@ -79,9 +95,11 @@ export class HomePageComponent implements OnInit {
     }
   }
 
-  saveInLocalStorage(portainerToken){
-    console.log(portainerToken);
-    this.storage.set(AppUtils.PORTAINER_TOKENS, portainerToken);
+  onLogout(){
+    console.log("HOMEPAGE: onLogout");
+    this.appUtils.saveInLocalStorage(AppUtils.PORTAINER_TOKENS,null);
+    this.keyServ.logout();
+    this.router.navigate(['/']);
   }
 
 }
