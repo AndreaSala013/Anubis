@@ -23,12 +23,18 @@ export class HomePageComponent implements OnInit {
     private portainerServ: PortainerService) { }
 
   async ngOnInit() {  
+    console.log("HOMEPAGE: ngOnInit");
     this.retry = true;
     if(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS)==null){
+      console.log("Token presente in sessione");
       await this.getPortainerTokenAndListContainers();
     }else{
+      console.log("Token NON presente in sessione");
       this.isLoading = true;
-      await this.getContainerList();  
+      let containerListOk = await this.getContainerList();  
+      if(!containerListOk){
+        alert("Errore durante il recupero della lista");
+      }  
       this.isLoading = false;
     }
   }
@@ -75,7 +81,8 @@ export class HomePageComponent implements OnInit {
       return false;
     }
     else if(proxyResp.status != 200){
-      if(proxyResp.message == AppUtils.PORTAINER_INVALID_TOKEN && this.retry){
+      let errMex = JSON.parse(proxyResp.message)['err'];
+      if(errMex == AppUtils.PORTAINER_INVALID_TOKEN && this.retry){
         this.retry = false;
         return await this.getPortainerTokenAndListContainers();
       }

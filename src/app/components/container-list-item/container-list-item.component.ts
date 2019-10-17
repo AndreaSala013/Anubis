@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Container } from 'src/app/model/Container';
 import { concatAll } from 'rxjs/operators';
 import { AppUtils } from 'src/app/utils/AppUtils';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-container-list-item',
@@ -36,11 +37,15 @@ buttonActionClick(){
 
 
 
-public stopPropagationHover(event: any): void
+stopPropagationHover(event: any): void
 {
   this.hover=false;
   event.stopPropagation();
 }
 
+
+onClickItem(){
+  window.open(environment.dastanUrl+this.container.name+"/");
+}
 
 }

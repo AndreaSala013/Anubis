@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import {  tap } from "rxjs/operators";
 import { ProxyResponse } from '../model/ProxyResponse';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

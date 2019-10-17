@@ -29,19 +29,20 @@ export class ContainerListComponent implements OnInit {
     let newState : string;
     let resp;
     if(container.status == AppUtils.CONTAINER_RUNNING){
-      let newState = AppUtils.CONTAINER_EXITED;
+      newState = AppUtils.CONTAINER_EXITED;
       resp = await this.portServ.stopContainer(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS),container.id);
     }
     else if(container.status == AppUtils.CONTAINER_EXITED){
-      let newState = AppUtils.CONTAINER_RUNNING;
+      newState = AppUtils.CONTAINER_RUNNING;
       resp = await this.portServ.startContainer(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS),container.id);
     }
-
-    if(resp == null || resp.status != 200 || resp.status != 204){
+    console.log(resp);
+    if(resp == null || ( resp.status != 200 && resp.status != 204)){
       alert("Operazione non riuscita");
     }else{
       this.containerList.forEach(element=>{
         if(element.id == container.id){
+          console.log(newState);
           element.status = newState;
         }
       });

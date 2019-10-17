@@ -1,4 +1,5 @@
 <div class="row" 
+    (click)="onClickItem()"
     (mouseover)="hover=true" 
     (mouseleave)="hover=false"
     [ngStyle]="{backgroundColor: hover==true  ? 'lightgrey' : 'white' }"
