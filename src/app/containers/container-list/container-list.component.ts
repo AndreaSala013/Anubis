@@ -2,8 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Container } from 'src/app/model/Container';
 import { PortainerService } from 'src/app/services/portainer.service';
 import { AppUtils } from 'src/app/utils/AppUtils';
-import { ProxyResponse } from 'src/app/model/ProxyResponse';
-import { element } from 'protractor';
+
 
 @Component({
   selector: 'app-container-list',
@@ -21,7 +20,7 @@ export class ContainerListComponent implements OnInit {
     private portServ:PortainerService) { }
 
   ngOnInit() {
-
+    
   }
 
   async onNewContainerState(container:Container){

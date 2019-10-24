@@ -4,6 +4,8 @@ import { KeycloakService } from 'src/app/services/keycloak.service';
 import { AppUtils } from 'src/app/utils/AppUtils';
 import { Container } from 'src/app/model/Container';
 import { Router } from '@angular/router';
+import { SearchInputChangeService } from 'src/app/services/search-input-change.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -11,20 +13,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-
+  searchChangeSub : Subscription;
   retry :boolean;
   isLoading :boolean;
-  containerList : Container[] = [];
+  containerListAll : Container[] = [];
+  containerListFiltered : Container[] = [];
 
   constructor(
     private router:Router,
     private appUtils:AppUtils,
     private keyServ: KeycloakService,
-    private portainerServ: PortainerService) { }
+    private portainerServ: PortainerService,
+    private searchServ:SearchInputChangeService) { }
 
   async ngOnInit() {  
     console.log("HOMEPAGE: ngOnInit");
     this.retry = true;
+
+    this.searchChangeSub = this.searchServ.searchInputChanged.subscribe((input)=> {
+      this.filterContainer(input);
+    })
+
     if(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS)==null){
       console.log("Token NON presente in sessione");
       await this.getPortainerTokenAndListContainers();
@@ -37,6 +46,24 @@ export class HomePageComponent implements OnInit {
       }  
       this.isLoading = false;
     }
+  }
+
+  ngOnDestroy(){
+    console.log('HomePageComponent:destroy');
+    this.searchChangeSub.unsubscribe();
+  }
+
+  filterContainer(filter:string){
+    console.log("HomePageComponent:filterContainer");
+    console.log(filter);
+    this.containerListFiltered =  [];
+    this.containerListAll.forEach(container => {    
+      console.log(container.name);
+      console.log(container.name.includes(filter));
+      if(filter=="" ||container.name.includes(filter)){
+        this.containerListFiltered.push(container);
+      }
+    });
   }
 
   async getPortainerTokenAndListContainers():Promise<boolean>{
@@ -104,7 +131,8 @@ export class HomePageComponent implements OnInit {
         container.status = element['State'];
         container.name = element['Names'][0];
         container.name = container.name.substr(1);
-        this.containerList.push(container);
+        this.containerListAll.push(container);
+        this.containerListFiltered.push(container);
       });
       return true;
     }

@@ -1,6 +1,8 @@
 import {  OnInit, Component, Output, EventEmitter } from '@angular/core';
-import { KeycloakService } from 'src/app/services/keycloak.service';
-import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { SearchInputChangeService } from 'src/app/services/search-input-change.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -11,13 +13,31 @@ export class NavbarComponent implements OnInit {
 
   @Output() logout = new EventEmitter();
 
-  constructor() { }
+  searchChangeSub : Subscription;
+  searchInput = new FormControl();
+
+  constructor(private searchServ:SearchInputChangeService) { }
 
   ngOnInit() {
+    this.searchInput = new FormControl();
+    this.searchChangeSub=this.searchInput.valueChanges
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    )
+    .subscribe(value=>{
+      console.log(value);
+      this.searchServ.emitSearchInputChangesEvent(value);
+    });
   }
 
   logoutClick(){
     this.logout.emit();
+  }
+
+  ngOnDestroy(){
+    console.log('NavbarComponent:destroy');
+    this.searchChangeSub.unsubscribe();
   }
 
 }
