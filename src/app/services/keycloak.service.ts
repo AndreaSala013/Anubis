@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AppUtils } from '../utils/AppUtils';
+import { isUndefined } from 'util';
 
 declare var Keycloak: any;
 
@@ -24,9 +26,19 @@ init(): Promise<any> {
     });
 }
 getToken(): string {
-  //console.log("getToken");
+  console.log("getToken");
   //console.log(this.keycloakAuth.tokenParsed["axepta"]);
   return this.keycloakAuth.token;
+}
+
+getFilter(): string{
+  console.log("getFiltern");
+  console.log(this.keycloakAuth.tokenParsed);
+  let filter = this.keycloakAuth.tokenParsed[AppUtils.FILTER_ATTRIBUTE];
+  if(isUndefined(filter)){
+    filter = null;
+  }
+  return filter;
 }
 
 logout(){

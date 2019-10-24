@@ -9,6 +9,8 @@ export class AppUtils{
     public static CONTAINER_RUNNING = "running";
     public static CONTAINER_EXITED = "exited";
     public static PORTAINER_INVALID_TOKEN = "Invalid JWT token";
+    public static FILTER_ATTRIBUTE = "filter";
+
 
     constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService){
 
@@ -25,5 +27,14 @@ export class AppUtils{
         console.log("APPUTILS:getFromLocalStorage");
         console.log(key);
         return this.storage.get(key);
+    }
+
+    public isJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
     }
 }

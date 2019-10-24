@@ -26,10 +26,10 @@ export class HomePageComponent implements OnInit {
     console.log("HOMEPAGE: ngOnInit");
     this.retry = true;
     if(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS)==null){
-      console.log("Token presente in sessione");
+      console.log("Token NON presente in sessione");
       await this.getPortainerTokenAndListContainers();
     }else{
-      console.log("Token NON presente in sessione");
+      console.log("Token presente in sessione");
       this.isLoading = true;
       let containerListOk = await this.getContainerList();  
       if(!containerListOk){
@@ -76,16 +76,24 @@ export class HomePageComponent implements OnInit {
   async getContainerList():Promise<boolean>{
     console.log("HOMEPAGE: getContainerList");
     console.log(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS));
-    let proxyResp = await this.portainerServ.getContainerList(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS));
+
+    let proxyResp = await this.portainerServ.getContainerList(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS), this.keyServ.getFilter());
     if(proxyResp == null){
       return false;
     }
     else if(proxyResp.status != 200){
-      let errMex = JSON.parse(proxyResp.message)['err'];
-      if(errMex == AppUtils.PORTAINER_INVALID_TOKEN && this.retry){
-        this.retry = false;
-        return await this.getPortainerTokenAndListContainers();
-      }
+      console.log(proxyResp.status + "  " +proxyResp.message);
+      if(this.appUtils.isJsonString(proxyResp.message)){
+        let errMex = JSON.parse(proxyResp.message)['err'];
+        if(errMex == AppUtils.PORTAINER_INVALID_TOKEN && this.retry){
+          this.retry = false;
+          return await this.getPortainerTokenAndListContainers();
+        }
+      }else{
+        if(proxyResp.message != null){
+          alert(proxyResp.message);
+        }
+      } 
       return false;
     }
     else{

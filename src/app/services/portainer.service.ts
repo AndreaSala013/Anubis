@@ -4,6 +4,7 @@ import { ProxyResponse } from '../model/ProxyResponse';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +15,7 @@ export class PortainerService {
   getPortainerToken():Promise<ProxyResponse> {
     console.log("PORTAINERSERVICE: getPortainerToken");
     let url = environment.urlDockerProxy + environment.methodLoginPortainer;
+    console.log(url);
     return this.http
     .get(url)
     .pipe(
@@ -26,13 +28,17 @@ export class PortainerService {
     });
   }
 
-  getContainerList(jwtToken):Promise<ProxyResponse> {
+  getContainerList(jwtToken, filter):Promise<ProxyResponse> {
     console.log("PORTAINERSERVICE: getContainerList");
-    console.log(jwtToken);
+    console.log("jwt : " + jwtToken);
+    console.log("filter : " + filter);
+
     let url = environment.urlDockerProxy + environment.methodListContainers;
+    console.log(url);
     let params = new HttpParams()
     .set("jwtToken", jwtToken)
-    .set("filter","");  
+    .set("filter",filter);  
+    console.log(params);
     let headers = new HttpHeaders()
     .set("Content-Type","application/x-www-form-urlencoded");
 
@@ -51,6 +57,7 @@ export class PortainerService {
   startContainer(jwtToken,idContainer):Promise<ProxyResponse>{
     console.log("PORTAINERSERVICE: startContainer");
     let url = environment.urlDockerProxy + environment.methodStartContainers;
+    console.log(url);
     let params = new HttpParams()
     .set("jwtToken", jwtToken)
     .set("idContainer",idContainer);  
@@ -71,6 +78,7 @@ export class PortainerService {
   stopContainer(jwtToken,idContainer):Promise<ProxyResponse>{
     console.log("PORTAINERSERVICE: stopContainer");
     let url = environment.urlDockerProxy + environment.methodStopContainers;
+    console.log(url);
     let params = new HttpParams()
     .set("jwtToken", jwtToken)
     .set("idContainer",idContainer);  

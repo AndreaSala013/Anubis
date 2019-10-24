@@ -10,7 +10,8 @@ export const environment = {
     'realm': 'Finance',
     'clientId': 'AnubisAuth'
   },*/
-  urlDockerProxy : "http://localhost:8080/dockerProxy_war",
+  //urlDockerProxy : "http://localhost:8080/dockerProxy",
+  urlDockerProxy : "http://localhost:4040/dockerProxy",
   methodLoginPortainer :  "/loginPortainer",
   methodListContainers : "/listContainers",
   methodStartContainers : "/startContainer",
