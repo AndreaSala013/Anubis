@@ -5,9 +5,12 @@
 export const environment = {
   production: false,
   keycloakConfig : {
-    'url': 'http://app.dastan.eng.it:6060/auth',
-    'realm': 'Finance',
-    'clientId': 'AnubisAuth'
+    'url': 'http://app.dastan.eng.it:9003/auth',
+    'realm': 'Offering_solutions',
+    'clientId': 'AnubisAuth',
+    'credentials': {
+      'secret': '69887c97-01d7-430e-ad73-d48ca23a1081'
+    }
   },
   /*keycloakConfig : {
     'url': 'http://localhost:7070/auth',
