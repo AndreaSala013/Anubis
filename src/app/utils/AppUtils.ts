@@ -9,7 +9,7 @@ export class AppUtils{
     public static CONTAINER_RUNNING = "running";
     public static CONTAINER_EXITED = "exited";
     public static PORTAINER_INVALID_TOKEN = "Invalid JWT token";
-    public static FILTER_ATTRIBUTE = "filter";
+    public static FILTER_ATTRIBUTE = "Filter";
 
 
     constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService){

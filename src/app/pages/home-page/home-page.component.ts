@@ -45,6 +45,7 @@ export class HomePageComponent implements OnInit {
         alert("Errore durante il recupero della lista");
       }  
       this.isLoading = false;
+      
     }
   }
 

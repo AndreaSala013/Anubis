@@ -9,6 +9,11 @@ export const environment = {
     }
   },
   /*keycloakConfig : {
+    'url': 'http://app.dastan.eng.it:9003/auth',
+    'realm': 'Offering_solutions',
+    'clientId': 'AnubisAuth'
+  },*/
+  /*keycloakConfig : {
     'url': 'http://localhost:7070/auth',
     'realm': 'Finance',
     'clientId': 'AnubisAuth'

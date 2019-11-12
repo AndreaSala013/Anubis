@@ -17,6 +17,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TestComponent } from './test/test/test.component';
 
 export function kcFactory(keycloakService: KeycloakService) {
+  console.log("kcFACTORY");
   return () => keycloakService.init();
 }
 

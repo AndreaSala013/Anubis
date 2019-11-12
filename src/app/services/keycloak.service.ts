@@ -13,11 +13,14 @@ export class KeycloakService {
   constructor() { }
 
   private keycloakAuth: any;
-init(): Promise<any> {
- return new Promise((resolve, reject) => {
+  init(): Promise<any> {
+  console.log("KEYCLOAKSERVICE:init");
+  return new Promise((resolve, reject) => {
     this.keycloakAuth = new Keycloak(environment.keycloakConfig);
+    console.log(this.keycloakAuth);
     this.keycloakAuth.init({ onLoad: 'login-required' })
       .success(() => {
+        console.log(this.keycloakAuth);
         resolve();
       })
       .error(() => {
@@ -42,6 +45,7 @@ getFilter(): string{
 }
 
 logout(){
+  console.log("logout");
   this.keycloakAuth.logout();
 }
 
