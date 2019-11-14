@@ -9,7 +9,7 @@
     <div class="col-md-3 text-center border-right">
         <p class="mt-3 font-weight-bold">{{container.status}}</p>
     </div>
-    <div class="col-md-2" (mouseover)=stopPropagationHover($event)>
+    <div class="col-md-2" (mouseover)=stopPropagationHover($event) (click)=stopPropagationClick($event)>
             <div *ngIf="isPlayVisible" class="mt-2 text-center">
                     <button mdbBtn (click)="buttonActionClick()"  class="btn-sm" type="button" color="light-green" mdbWavesEffect>
                         <mdb-icon fas icon="play" ></mdb-icon>

@@ -49,4 +49,8 @@ export class ContainerListComponent implements OnInit {
     this.isLoading = false;
   }
 
+  orderBy(prop: string) {
+    return this.containerList.sort((a, b) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
+  }
+
 }

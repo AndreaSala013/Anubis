@@ -15,6 +15,8 @@ import { ContainerListItemComponent } from './components/container-list-item/con
 import { ContainerListComponent } from './containers/container-list/container-list.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TestComponent } from './test/test/test.component';
+import { ConsolePageComponent } from './pages/console-page/console-page.component';
+import { ContainerPageComponent } from './pages/container-page/container-page.component';
 
 export function kcFactory(keycloakService: KeycloakService) {
   console.log("kcFACTORY");
@@ -29,7 +31,9 @@ export function kcFactory(keycloakService: KeycloakService) {
     LoaderComponent,
     ContainerListItemComponent,
     ContainerListComponent,
-    TestComponent
+    TestComponent,
+    ConsolePageComponent,
+    ContainerPageComponent
   ],
   imports: [
     StorageServiceModule,

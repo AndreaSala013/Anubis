@@ -43,6 +43,9 @@ stopPropagationHover(event: any): void
   event.stopPropagation();
 }
 
+stopPropagationClick(event: any){
+  event.stopPropagation();
+}
 
 onClickItem(){
   window.open(environment.dastanUrl+this.container.name+"/");

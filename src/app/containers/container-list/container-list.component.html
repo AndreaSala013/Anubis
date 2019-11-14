@@ -1,7 +1,7 @@
 <div class="container mt-3">
 
         <div *ngIf="!isLoading; else notLoading">
-                <div *ngFor="let item of containerList">   
+                <div *ngFor="let item of orderBy('name')">   
                          <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
                 </div>
         </div>

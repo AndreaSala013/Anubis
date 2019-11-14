@@ -9,7 +9,7 @@ export const environment = {
     'realm': 'Offering_solutions',
     'clientId': 'AnubisAuth',
     'credentials': {
-      'secret': '69887c97-01d7-430e-ad73-d48ca23a1081'
+      'secret': '298d2e59-d913-442c-a2f7-ec30ea47da9b'
     }
   },
   /*keycloakConfig : {
