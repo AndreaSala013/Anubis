@@ -18,8 +18,8 @@ export const environment = {
     'realm': 'Finance',
     'clientId': 'AnubisAuth'
   },*/
-  //urlDockerProxy : "http://localhost:8080/dockerProxy",
-  urlDockerProxy : "http://localhost:4040/dockerProxy",
+  //urlDockerProxy : "http://localhost:4040/dockerProxy",
+  urlDockerProxy : "http://app.dastan.eng.it:9004/dockerProxy",
   methodLoginPortainer :  "/loginPortainer",
   methodListContainers : "/listContainers",
   methodStartContainers : "/startContainer",

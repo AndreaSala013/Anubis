@@ -1,4 +1,4 @@
-<div class="row" 
+<div class="row align-items-center" 
     (click)="onClickItem()"
     (mouseover)="hover=true" 
     (mouseleave)="hover=false"
@@ -7,16 +7,16 @@
         <p class="mt-3 font-weight-bold">{{container.name}}</p>
     </div>
     <div class="col-md-3 text-center border-right">
-        <p class="mt-3 font-weight-bold">{{container.status}}</p>
+        <h4 style="margin-top: 16px; margin-bottom: 16px;"><span class="badge badge-pill" [ngClass]="{'badge-success': isStopVisible ,'badge-danger': isPlayVisible}">{{container.status}}</span></h4>
     </div>
     <div class="col-md-2" (mouseover)=stopPropagationHover($event) (click)=stopPropagationClick($event)>
-            <div *ngIf="isPlayVisible" class="mt-2 text-center">
-                    <button mdbBtn (click)="buttonActionClick()"  class="btn-sm" type="button" color="light-green" mdbWavesEffect>
+            <div *ngIf="isPlayVisible" class="text-center">
+                    <button mdbBtn (click)="buttonActionClick()"  class="btn-sm btn-outline-success" type="button" mdbWavesEffect>
                         <mdb-icon fas icon="play" ></mdb-icon>
                     </button>
             </div>
-            <div *ngIf="isStopVisible" class="mt-2 text-center">
-                    <button mdbBtn (click)="buttonActionClick()" class="btn-sm" type="button" color="red" mdbWavesEffect>
+            <div *ngIf="isStopVisible" class="text-center">
+                    <button mdbBtn (click)="buttonActionClick()" class="btn-sm btn-outline-danger" type="button" mdbWavesEffect>
                             <mdb-icon fas icon="stop" ></mdb-icon>
                         </button>
             </div>

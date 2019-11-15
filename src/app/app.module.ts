@@ -17,6 +17,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TestComponent } from './test/test/test.component';
 import { ConsolePageComponent } from './pages/console-page/console-page.component';
 import { ContainerPageComponent } from './pages/container-page/container-page.component';
+import { RouteReuseStrategy } from '@angular/router';
+import { CacheRouteReuseStrategy } from './utils/CacheRouteReuse.strategy';
 
 export function kcFactory(keycloakService: KeycloakService) {
   console.log("kcFACTORY");
@@ -51,6 +53,10 @@ export function kcFactory(keycloakService: KeycloakService) {
       useFactory: kcFactory,
       deps: [KeycloakService],
       multi: true
+    },
+    {
+      provide: RouteReuseStrategy,
+      useClass: CacheRouteReuseStrategy
     }
   ],
   bootstrap: [AppComponent]

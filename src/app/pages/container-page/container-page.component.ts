@@ -3,7 +3,6 @@ import { PortainerService } from 'src/app/services/portainer.service';
 import { KeycloakService } from 'src/app/services/keycloak.service';
 import { AppUtils } from 'src/app/utils/AppUtils';
 import { Container } from 'src/app/model/Container';
-import { Router } from '@angular/router';
 import { SearchInputChangeService } from 'src/app/services/search-input-change.service';
 import { Subscription } from 'rxjs';
 
@@ -21,7 +20,6 @@ export class ContainerPageComponent implements OnInit {
   containerListFiltered : Container[] = [];
 
   constructor(
-    private router:Router,
     private appUtils:AppUtils,
     private keyServ: KeycloakService,
     private portainerServ: PortainerService,
@@ -138,13 +136,6 @@ export class ContainerPageComponent implements OnInit {
       });
       return true;
     }
-  }
-
-  onLogout(){
-    console.log("HOMEPAGE: onLogout");
-    this.appUtils.saveInLocalStorage(AppUtils.PORTAINER_TOKENS,null);
-    this.keyServ.logout();
-    this.router.navigate(['/']);
   }
 
 }
