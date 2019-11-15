@@ -1,1 +1,10 @@
-<p>container-page works!</p>
+<div class="h-100 " *ngIf="isLoading; else notLoading">
+    <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-3 text-center" >
+                <app-loader></app-loader>
+        </div>
+    </div>
+</div>
+<ng-template #notLoading>
+    <app-container-list [containerList]="containerListFiltered"></app-container-list>
+</ng-template>
