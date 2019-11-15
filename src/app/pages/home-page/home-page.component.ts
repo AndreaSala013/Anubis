@@ -9,12 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
+
+  username: string;
+
   constructor(
     private appUtils:AppUtils,
     private keyServ:KeycloakService,
     private router:Router) { }
 
   ngOnInit() {
+    this.username = this.keyServ.getUsername();
   }
 
   onLogout(){

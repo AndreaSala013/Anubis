@@ -11,12 +11,12 @@
     </div>
     <div class="col-md-2" (mouseover)=stopPropagationHover($event) (click)=stopPropagationClick($event)>
             <div *ngIf="isPlayVisible" class="text-center">
-                    <button mdbBtn (click)="buttonActionClick()"  class="btn-sm btn-outline-success" type="button" mdbWavesEffect>
+                    <button mdbBtn (click)="buttonActionClick()"  class="btn-sm btn-outline-success" type="button" mdbWavesEffect disabled >
                         <mdb-icon fas icon="play" ></mdb-icon>
                     </button>
             </div>
             <div *ngIf="isStopVisible" class="text-center">
-                    <button mdbBtn (click)="buttonActionClick()" class="btn-sm btn-outline-danger" type="button" mdbWavesEffect>
+                    <button mdbBtn (click)="buttonActionClick()" class="btn-sm btn-outline-danger" type="button" mdbWavesEffect disabled >
                             <mdb-icon fas icon="stop" ></mdb-icon>
                         </button>
             </div>

@@ -1,4 +1,4 @@
-import {  OnInit, Component, Output, EventEmitter } from '@angular/core';
+import {  OnInit, Component, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchInputChangeService } from 'src/app/services/search-input-change.service';
@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class NavbarComponent implements OnInit {
 
   @Output() logout = new EventEmitter();
+  @Input("username") username : string;
 
   searchChangeSub : Subscription;
   searchInput = new FormControl();

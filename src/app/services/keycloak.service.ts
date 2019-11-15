@@ -34,6 +34,12 @@ getToken(): string {
   return this.keycloakAuth.token;
 }
 
+getUsername(){
+  console.log("getUsername");
+  console.log(this.keycloakAuth.tokenParsed[AppUtils.USERNAME_ATTRIBUTE]);
+  return this.keycloakAuth.tokenParsed[AppUtils.USERNAME_ATTRIBUTE];
+}
+
 getFilter(): string{
   console.log("getFiltern");
   console.log(this.keycloakAuth.tokenParsed);

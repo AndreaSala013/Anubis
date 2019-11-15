@@ -22,21 +22,21 @@
         </li>
       </ul>
     </div>
-  
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse d-flex justify-content-end" id="basicExampleNav">
-  
-      <form class="form-inline my-2 my-lg-0 ml-auto">
+
+    <div class="btn-group mx-4" mdbDropdown>
+        <mdb-icon fas icon="user" size="2x"  mdbDropdownToggle class="waves-effect white-text"
+                  mdbWavesEffect></mdb-icon>
+        <div class="dropdown-menu dropdown-primary">
+          <a class="dropdown-item" (click)="logoutClick()">Logout</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item disabled"><b>{{username}}</b></a>
+        </div>
+    </div>
+
+    <form class="form-inline my-2 my-lg-0 ml-auto">
         <div class="md-form my-0">
           <input [formControl]="searchInput" class="form-control  mr-sm-2" type="text" style="color: white" placeholder="Search" aria-label="Search">
         </div>
       </form>
-
-      <a><i class="fas fa-sign-out-alt fa-2x white-text" (click)=logoutClick()></i></a>
-    </div>
-    
-    <!-- Collapsible content -->
-  
   </nav>
   <!--/.Navbar-->
-  
