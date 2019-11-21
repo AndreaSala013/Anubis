@@ -5,19 +5,19 @@
     <a class="navbar-brand" href="#">Anubis</a>-->
       
     <a style="
-    font-family: Papyrus, fantasy;  
-    color: gold; 
-    margin-bottom: 0;
-    font-size: 40px;
-    margin-right: 20px;"
-    routerLink="/Home">Anubis</a>
+    color: white;
+    font-size: 40px; 
+    border-right-style: solid; 
+    border-right-width: 2px;
+    padding-right: 20px;
+    border-right-color: white;" routerLink="/Home"><b>Anubis</b></a>
 
     <div class="collapse navbar-collapse ml-3" id="navbarNav">
       <ul class="nav navbar-nav" routerLinkActive="active" route>
         <li class="nav-item" routerLinkActive="active" >
           <a class="nav-link" routerLink="/Home">Home</a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item d-none" routerLinkActive="active">
           <a class="nav-link" routerLink="/Console">Console</a>
         </li>
       </ul>
@@ -27,9 +27,14 @@
         <mdb-icon fas icon="user" size="2x"  mdbDropdownToggle class="waves-effect white-text"
                   mdbWavesEffect></mdb-icon>
         <div class="dropdown-menu dropdown-primary">
-          <a class="dropdown-item" (click)="logoutClick()">Logout</a>
+            <a class="dropdown-item align-items-center" (click)="logoutClick()">
+              Logout<i class="fas fa-sign-out-alt fa-1x float-right" (click)=logoutClick()></i>
+            </a>
           <div class="divider dropdown-divider"></div>
-          <a class="dropdown-item disabled"><b>{{username}}</b></a>
+          <a class="dropdown-item disabled">
+            <b>{{username}}</b>
+            <i class="fas fa-user fa-1x float-right" (click)=logoutClick()></i>
+          </a>
         </div>
     </div>
 
