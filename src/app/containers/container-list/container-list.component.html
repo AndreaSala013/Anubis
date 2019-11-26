@@ -1,9 +1,56 @@
-<div class="container mt-3">
+<div class="container mt-3 w-100">
 
         <div *ngIf="!isLoading; else notLoading">
-                <div *ngFor="let item of orderBy('name')">   
-                         <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
-                </div>
+
+                <!-- Axepta -->
+                <div *ngIf="axeptaContainers.length>0">
+                        <h2 class="pointer-element" (click)="showAxepta=!showAxepta">Axepta</h2>
+                        <div *ngIf="showAxepta">
+                                <div *ngFor="let item of axeptaContainers">   
+                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+                                </div>
+                        </div>
+                </div> 
+                
+                <!-- ING -->
+                <div *ngIf="ingContainers.length>0">
+                        <h2 class="pointer-element" (click)="showIng=!showIng">Ing</h2>
+                        <div *ngIf="showIng">
+                                <div *ngFor="let item of ingContainers">   
+                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+                                </div>
+                        </div>
+                </div>    
+
+                <!-- RIVER -->
+                <div *ngIf="riverContainers.length>0">
+                        <h2 class="pointer-element" (click)="showRiver=!showRiver">River</h2>
+                        <div *ngIf="showRiver">
+                                <div *ngFor="let item of riverContainers">   
+                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+                                </div>
+                        </div>
+                </div>    
+
+                <!-- POPSO -->
+                <div *ngIf="popsoContainers.length>0">
+                        <h2 class="pointer-element" (click)="showPopso=!showPopso">Popso</h2>
+                        <div *ngIf="showPopso">
+                                <div *ngFor="let item of popsoContainers">   
+                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+                                </div>
+                        </div>
+                </div>    
+                
+                <!-- Generali -->
+                <div *ngIf="generalContainers.length>0">
+                        <h2 class="pointer-element" (click)="showGeneral=!showGeneral">Generali</h2>
+                        <div *ngIf="showGeneral">
+                                <div *ngFor="let item of generalContainers">   
+                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+                                </div>
+                        </div>
+                </div>     
         </div>
         <ng-template #notLoading>
                         <div class="row h-100 justify-content-center align-items-center">

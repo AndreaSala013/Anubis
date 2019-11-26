@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, SimpleChange } from '@angular/core';
 import { Container } from 'src/app/model/Container';
 import { PortainerService } from 'src/app/services/portainer.service';
 import { AppUtils } from 'src/app/utils/AppUtils';
@@ -11,7 +11,46 @@ import { AppUtils } from 'src/app/utils/AppUtils';
 })
 export class ContainerListComponent implements OnInit {
 
-  @Input('containerList') containerList : Container[];
+  _containerList : Container[];
+
+  @Input('containerList') 
+  set containerList(value: Container[]){
+    this._containerList = value;
+    this.axeptaContainers  = [];
+    this.ingContainers  = [];
+    this.riverContainers = [];
+    this.generalContainers  = [];
+    this.popsoContainers = [];
+    this._containerList.forEach(element => {
+      if(element.name.includes("axepta")){
+        this.axeptaContainers.push(element);
+      }
+      else if(element.name.includes("ing")){
+        this.ingContainers.push(element);
+      }
+      else if(element.name.includes("river")){
+        this.riverContainers.push(element);
+      }
+      else if(element.name.includes("popso")){
+        this.popsoContainers.push(element);
+      }
+      else{
+        this.generalContainers.push(element);
+      }
+    });
+  }
+
+  axeptaContainers : Container[] = [];
+  ingContainers : Container[] = [];
+  riverContainers : Container[] = [];
+  popsoContainers : Container[] = [];
+  generalContainers : Container[] = [];
+
+  showAxepta = true;
+  showIng = true;
+  showRiver = true;
+  showPopso = true;
+  showGeneral = true;
 
   isLoading: boolean;
 
@@ -20,8 +59,8 @@ export class ContainerListComponent implements OnInit {
     private portServ:PortainerService) { }
 
   ngOnInit() {
-    
   }
+
 
   async onNewContainerState(container:Container){
     this.isLoading = true;
@@ -47,10 +86,6 @@ export class ContainerListComponent implements OnInit {
       });
     }
     this.isLoading = false;
-  }
-
-  orderBy(prop: string) {
-    return this.containerList.sort((a, b) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
   }
 
 }

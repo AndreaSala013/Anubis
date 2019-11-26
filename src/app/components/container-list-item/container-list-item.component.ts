@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Container } from 'src/app/model/Container';
-import { concatAll } from 'rxjs/operators';
 import { AppUtils } from 'src/app/utils/AppUtils';
 import { environment } from 'src/environments/environment';
 
