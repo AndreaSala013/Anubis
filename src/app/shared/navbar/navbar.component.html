@@ -7,7 +7,7 @@
     font-size: 40px;" (click)="reloadAnubis()"><b> A</b></a>
 
     <form class="form-inline my-2 my-lg-0 ml-auto" style="padding-right: 20px;">
-      <div class="md-form my-0">
+      <div class="md-form">
         <input [formControl]="searchInput" class="form-control  mr-sm-2" type="text" style="color: white" placeholder="Search" aria-label="Search">
       </div>
     </form>
@@ -19,8 +19,5 @@
     border-left-color: white;">
       <h3 >{{username}}</h3>
     </div>
-
-    <a><i class="fas fa-sign-out-alt fa-2x white-text" (click)=logoutClick()></i></a>
-
   </nav>
   <!--/.Navbar-->

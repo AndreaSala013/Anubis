@@ -5,6 +5,8 @@ import { AppUtils } from 'src/app/utils/AppUtils';
 import { Container } from 'src/app/model/Container';
 import { SearchInputChangeService } from 'src/app/services/search-input-change.service';
 import { Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-container-page',
@@ -13,6 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class ContainerPageComponent implements OnInit {
 
+  searchInput : FormControl;
   searchChangeSub : Subscription;
   retry :boolean;
   isLoading :boolean;
@@ -22,16 +25,22 @@ export class ContainerPageComponent implements OnInit {
   constructor(
     private appUtils:AppUtils,
     private keyServ: KeycloakService,
-    private portainerServ: PortainerService,
-    private searchServ:SearchInputChangeService) { }
+    private portainerServ: PortainerService) { }
 
   async ngOnInit() {  
     console.log("HOMEPAGE: ngOnInit");
     this.retry = true;
 
-    this.searchChangeSub = this.searchServ.searchInputChanged.subscribe((input)=> {
-      this.filterContainer(input);
-    })
+    this.searchInput = new FormControl();
+    this.searchChangeSub=this.searchInput.valueChanges
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    )
+    .subscribe(value=>{
+      console.log(value);
+      this.filterContainer(value);
+    });
 
     if(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS)==null){
       console.log("Token NON presente in sessione");
