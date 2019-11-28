@@ -9,9 +9,16 @@
     <div class="row">
         <div class="col-12">
             <form class="justify-content-center form-inline ml-auto">
-                <div class="md-form">
-                    <input [formControl]="searchInput" class="form-control" type="text" placeholder="Search" aria-label="Search">
+                <div class="w-50 border border-light  rounded-pill mt-2"
+                [ngClass]="{'z-depth-1': divHover}"
+                (mouseenter)="mouseOverSearch()"
+                (mouseleave)="mouseOverSearch()">
+                    <div class="md-form w-100 text-center m-0">
+                        <input [formControl]="searchInput" class="form-control w-75" type="text" placeholder="Search" aria-label="Search">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </div>
                 </div>
+                
             </form>
         </div>
         <div class="col-12">

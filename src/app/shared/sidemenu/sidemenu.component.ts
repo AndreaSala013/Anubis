@@ -28,4 +28,8 @@ export class SidemenuComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  reloadAnubis(){
+    location.replace("Home");
+  }
+
 }

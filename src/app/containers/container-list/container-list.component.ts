@@ -46,7 +46,15 @@ export class ContainerListComponent implements OnInit {
         this.generalContainers.push(element);
       });
     }
+
+    if(this.groupsToDisplay != null && this.groupsToDisplay.size>1){
+      this.useCol6=true;
+    }else{
+      this.useCol6=false;
+    }
   }
+
+  useCol6 : boolean = false;
 
   groupsFromLocalStorage : ContainerGroup[];
   groupsToDisplay : Map<string,Container[]>;
