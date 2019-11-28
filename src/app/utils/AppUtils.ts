@@ -11,6 +11,8 @@ export class AppUtils{
     public static PORTAINER_INVALID_TOKEN = "Invalid JWT token";
     public static FILTER_ATTRIBUTE = "Filter";
     public static USERNAME_ATTRIBUTE = "preferred_username";
+    public static CONTAINER_GROUP_OBJ = "container_groups_obj";
+
 
     constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService){
 

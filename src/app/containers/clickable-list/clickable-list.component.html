@@ -1,0 +1,31 @@
+<div class="row w-100">
+    <div *ngIf="stringsList != null && stringsList.length>0" class="col-12">
+        <ul class="list-group">
+            <div *ngFor="let item of stringsList; let i = index">
+                <li class="list-group-item pointer-element" [class.active]="selectedIndex === i" (click)="onItemClick(item,i)">{{item}}</li>
+            </div>
+        </ul>
+    </div>
+    <div class="col-12">
+            <div class="form-row align-items-center">
+                <div class="col-8">
+                    <div class="md-form">
+                        <mdb-icon fas icon="layer-group" class="prefix"></mdb-icon>
+                        <input mdbInput type="text" id="form1" class="form-control" #stringInput>
+                        <label for="form1" class="">{{placeholderNew}}</label>
+                        
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-success px-3" (click)="addNew(stringInput.value)">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div class="col-2">
+                        <button type="button" mdbTooltip="Elimina tutto" placement="right" class="btn btn-danger px-3" (click)="svuotaLista()">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                </div>
+            </div>
+        </div>
+</div>

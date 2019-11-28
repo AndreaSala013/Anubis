@@ -3,6 +3,7 @@ import {  tap } from "rxjs/operators";
 import { ProxyResponse } from '../model/ProxyResponse';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Container } from '../model/Container';
 
 
 @Injectable({
@@ -10,7 +11,17 @@ import { environment } from 'src/environments/environment';
 })
 export class PortainerService {
 
+  private cachedContainerList : Container[] = [];
+
   constructor(private http: HttpClient) { }
+
+  setCachedProxyResp(respDaSalvare : Container[]){
+    this.cachedContainerList = respDaSalvare;
+  }
+
+  getCachedProxyResp():Container[]{
+    return this.cachedContainerList;
+  }
 
   getPortainerToken():Promise<ProxyResponse> {
     console.log("PORTAINERSERVICE: getPortainerToken");

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, SimpleChanges, SimpleChange } from '@angular/
 import { Container } from 'src/app/model/Container';
 import { PortainerService } from 'src/app/services/portainer.service';
 import { AppUtils } from 'src/app/utils/AppUtils';
+import { ContainerGroup } from 'src/app/model/ContainerGroup';
 
 
 @Component({
@@ -11,45 +12,45 @@ import { AppUtils } from 'src/app/utils/AppUtils';
 })
 export class ContainerListComponent implements OnInit {
 
-  _containerList : Container[];
-
+  private _containerList : Container[]
   @Input('containerList') 
   set containerList(value: Container[]){
     this._containerList = value;
-    this.axeptaContainers  = [];
-    this.ingContainers  = [];
-    this.riverContainers = [];
-    this.generalContainers  = [];
-    this.popsoContainers = [];
-    this._containerList.forEach(element => {
-      if(element.name.includes("axepta")){
-        this.axeptaContainers.push(element);
+    this.checkLocalStorageForGroups();
+    this.groupsToDisplay = new Map();
+    this.groupsVisibile = new Map();
+    this.generalContainers = [];
+    console.log(this.groupsFromLocalStorage);
+    if(this.groupsFromLocalStorage != null && this.groupsFromLocalStorage.length > 0){
+      for(let cont of this._containerList){
+        let groupName = null;
+        for(let gr of this.groupsFromLocalStorage){
+          if(gr.containersNames.includes(cont.name)){
+            groupName = gr.name;
+            break;
+          }
+        }
+        if(groupName == null){
+          this.generalContainers.push(cont);
+        }else{
+          if(!this.groupsToDisplay.has(groupName)){
+            this.groupsToDisplay.set(groupName, []);
+            this.groupsVisibile.set(groupName, true);
+          }
+          this.groupsToDisplay.get(groupName).push(cont);
+        }
       }
-      else if(element.name.includes("ing")){
-        this.ingContainers.push(element);
-      }
-      else if(element.name.includes("river")){
-        this.riverContainers.push(element);
-      }
-      else if(element.name.includes("popso")){
-        this.popsoContainers.push(element);
-      }
-      else{
+    }else{
+      this._containerList.forEach(element => {
         this.generalContainers.push(element);
-      }
-    });
+      });
+    }
   }
 
-  axeptaContainers : Container[] = [];
-  ingContainers : Container[] = [];
-  riverContainers : Container[] = [];
-  popsoContainers : Container[] = [];
+  groupsFromLocalStorage : ContainerGroup[];
+  groupsToDisplay : Map<string,Container[]>;
+  groupsVisibile : Map<string, boolean>;
   generalContainers : Container[] = [];
-
-  showAxepta = true;
-  showIng = true;
-  showRiver = true;
-  showPopso = true;
   showGeneral = true;
 
   isLoading: boolean;
@@ -59,8 +60,16 @@ export class ContainerListComponent implements OnInit {
     private portServ:PortainerService) { }
 
   ngOnInit() {
+    
   }
 
+  checkLocalStorageForGroups(){
+    let groupsStr = this.appUtils.getFromLocalStorage(AppUtils.CONTAINER_GROUP_OBJ);
+    //let groupsStr = '[{"name":"Axepta", "containersNames":["axepta-dcode-prod","axepta-dcode-developer"]},{"name":"Ubi", "containersNames":["ubi-river-x-online"]}]';
+    if(groupsStr != null && groupsStr != ""){
+      this.groupsFromLocalStorage = JSON.parse(groupsStr);
+    }
+  }
 
   async onNewContainerState(container:Container){
     this.isLoading = true;
@@ -78,7 +87,7 @@ export class ContainerListComponent implements OnInit {
     if(resp == null || ( resp.status != 200 && resp.status != 204)){
       alert("Operazione non riuscita");
     }else{
-      this.containerList.forEach(element=>{
+      this._containerList.forEach(element=>{
         if(element.id == container.id){
           console.log(newState);
           element.status = newState;

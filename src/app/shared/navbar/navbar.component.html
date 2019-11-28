@@ -1,23 +1,11 @@
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    
+    <a class="ml-2"
+    style="font-family: Papyrus, fantasy;  
+    color: gold;
+    font-size: 40px;" (click)="reloadAnubis()"><b> A</b></a>
 
-    <!-- Navbar brand 
-    <a class="navbar-brand" href="#">Anubis</a>-->
-      
-    <a style="
-    color: white;
-    font-size: 40px;" routerLink="/Home"><b>Anubis</b></a>
-
-    <div class="collapse navbar-collapse ml-3 " id="navbarNav">
-      <ul class="nav navbar-nav d-none" routerLinkActive="active" route>
-        <li class="nav-item" routerLinkActive="active" >
-          <a class="nav-link" routerLink="/Home">Home</a>
-        </li>
-        <li class="nav-item d-none" routerLinkActive="active">
-          <a class="nav-link" routerLink="/Console">Console</a>
-        </li>
-      </ul>
-    </div>
     <form class="form-inline my-2 my-lg-0 ml-auto" style="padding-right: 20px;">
       <div class="md-form my-0">
         <input [formControl]="searchInput" class="form-control  mr-sm-2" type="text" style="color: white" placeholder="Search" aria-label="Search">

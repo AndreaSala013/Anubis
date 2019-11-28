@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { PortainerService } from 'src/app/services/portainer.service';
 import { KeycloakService } from 'src/app/services/keycloak.service';
 import { AppUtils } from 'src/app/utils/AppUtils';
@@ -134,6 +134,7 @@ export class ContainerPageComponent implements OnInit {
         this.containerListAll.push(container);
         this.containerListFiltered.push(container);
       });
+      this.portainerServ.setCachedProxyResp(this.containerListAll);
       return true;
     }
   }
