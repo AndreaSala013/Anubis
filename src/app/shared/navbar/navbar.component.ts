@@ -41,4 +41,8 @@ export class NavbarComponent implements OnInit {
     this.searchChangeSub.unsubscribe();
   }
 
+  reloadAnubis(){
+    location.replace("Home");
+  }
+
 }

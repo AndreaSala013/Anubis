@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-12">
+        <div class="row justify-content-center align-items-center">
+                <h2>{{selectedGroup.name}}</h2>
+                <button type="button" mdbTooltip="Salva" placement="right" class="btn btn-success px-3 ml-2" (click)="salvaGruppo()">
+                    <i class="far fa-save fa-2x"></i>
+                </button>
+                <button type="button" mdbTooltip="Elimina" placement="right" class="btn btn-danger px-3" (click)="eliminaGruppo()">
+                    <i class="fas fa-trash-alt fa-2x"></i>
+                </button>
+        </div>
+    </div>
+    <div class="col-12">
+        <mdb-checkbox 
+        *ngFor="let item of allContainers" 
+        (change)="onChangeCheck($event, item)"
+        [checked]="selectedContainers.includes(item.name)" 
+        [disabled]="blockedContainers.includes(item.name)"
+        [default]="true">{{item.name}}</mdb-checkbox>
+    </div>
+</div>

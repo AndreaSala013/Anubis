@@ -1,42 +1,16 @@
 <div class="container mt-3 w-100">
-
         <div *ngIf="!isLoading; else notLoading">
-
-                <!-- Axepta -->
-                <div *ngIf="axeptaContainers.length>0">
-                        <h2 class="pointer-element" (click)="showAxepta=!showAxepta">Axepta</h2>
-                        <div *ngIf="showAxepta">
-                                <div *ngFor="let item of axeptaContainers">   
-                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+                <!-- Custom -->
+                <div *ngIf="groupsToDisplay.size>0">
+                        <div *ngFor="let group of groupsToDisplay | keyvalue">
+                                <div class="row align-items-center pointer-element" (click)="groupsVisibile.set(group.key, !groupsVisibile.get(group.key))">
+                                        <h2>{{group.key}}</h2>
+                                        <i *ngIf="!groupsVisibile.get(group.key); else minus" class="fas fa-plus black-text ml-2"></i>
+                                        <ng-template #minus>
+                                                <i class="fas fa-minus black-text ml-2"></i>
+                                        </ng-template>
                                 </div>
-                        </div>
-                </div> 
-                
-                <!-- ING -->
-                <div *ngIf="ingContainers.length>0">
-                        <h2 class="pointer-element" (click)="showIng=!showIng">Ing</h2>
-                        <div *ngIf="showIng">
-                                <div *ngFor="let item of ingContainers">   
-                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
-                                </div>
-                        </div>
-                </div>    
-
-                <!-- RIVER -->
-                <div *ngIf="riverContainers.length>0">
-                        <h2 class="pointer-element" (click)="showRiver=!showRiver">River</h2>
-                        <div *ngIf="showRiver">
-                                <div *ngFor="let item of riverContainers">   
-                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
-                                </div>
-                        </div>
-                </div>    
-
-                <!-- POPSO -->
-                <div *ngIf="popsoContainers.length>0">
-                        <h2 class="pointer-element" (click)="showPopso=!showPopso">Popso</h2>
-                        <div *ngIf="showPopso">
-                                <div *ngFor="let item of popsoContainers">   
+                                <div [hidden]="!groupsVisibile.get(group.key)" *ngFor="let item of groupsToDisplay.get(group.key)">   
                                         <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
                                 </div>
                         </div>
@@ -44,7 +18,13 @@
                 
                 <!-- Generali -->
                 <div *ngIf="generalContainers.length>0">
-                        <h2 class="pointer-element" (click)="showGeneral=!showGeneral">Generali</h2>
+                        <div class="row align-items-center pointer-element" (click)="showGeneral=!showGeneral"> 
+                                <h2>Generali</h2>
+                                <i *ngIf="!showGeneral; else minus" class="fas fa-plus black-text ml-2"></i>
+                                <ng-template #minus>
+                                        <i class="fas fa-minus black-text ml-2"></i>
+                                </ng-template>
+                        </div>
                         <div *ngIf="showGeneral">
                                 <div *ngFor="let item of generalContainers">   
                                         <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
@@ -58,8 +38,7 @@
                                                 <app-loader [viewText]="false"></app-loader>
                                     </div>
                                 </div>
-        </ng-template>
-        
+        </ng-template>       
 </div>
 
     

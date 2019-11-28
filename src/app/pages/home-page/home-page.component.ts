@@ -19,6 +19,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
     this.username = this.keyServ.getUsername();
+
   }
 
   onLogout(){
@@ -27,4 +28,5 @@ export class HomePageComponent implements OnInit {
     this.keyServ.logout();
     this.router.navigate(['']);
   }
+
 }
