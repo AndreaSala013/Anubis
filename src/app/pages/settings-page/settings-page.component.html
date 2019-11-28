@@ -18,7 +18,9 @@
             <app-checkbox-list 
             (gruppiSalvati)="onSalvaGruppi($event)"
             [allGroups]="groups" 
-            [containerList]="containerList" 
+            [allContainers]="containerList"
+            [selectedContainers]="selectedContainers"
+            [blockedContainers]="blockedContainers" 
             [selectedGroup]="selectedElement" ></app-checkbox-list>
         </div>
         

@@ -9,34 +9,18 @@ import { Container } from 'src/app/model/Container';
 })
 export class CheckboxListComponent implements OnInit {
 
-  private _selectedGroup;
-
-  @Input('containerList') containerList: Container[];
   @Input('selectedGroup') selectedGroup:ContainerGroup;
   @Input('allGroups') allGroups : ContainerGroup[];
+  @Input('allContainers') allContainers : Container[];
+  @Input('selectedContainers') selectedContainers : String[];
+  @Input('blockedContainers') blockedContainers : String[];
+
   @Output('gruppiSalvati') gruppiSalvati = new EventEmitter<ContainerGroup[]>();
 
-  selectedContainers : String[];
-  blockedContainers : String[];
-
+  
   constructor() { }
 
   ngOnInit() {
-    this.reloadList();
-  }
-
-  reloadList(){
-    this.selectedContainers = [];
-    this.selectedContainers = this.selectedGroup.containersNames;
-
-    this.blockedContainers = [];
-    this.allGroups.forEach(gr=>{
-      if(gr.name != this.selectedGroup.name){
-        gr.containersNames.forEach(cont=>{
-          this.blockedContainers.push(cont);
-        });
-      }
-    });
   }
 
   onChangeCheck(element, container : Container){

@@ -14,7 +14,10 @@ export class SettingsPageComponent implements OnInit {
   containerList : Container[];
   groupsNames : String[];
   groups : ContainerGroup[];
+  
   selectedElement : ContainerGroup;
+  selectedContainers : String[];
+  blockedContainers : String[];
 
   constructor(
     private appUtils:AppUtils,
@@ -43,6 +46,24 @@ export class SettingsPageComponent implements OnInit {
       }
     }
     this.reloadGroups();
+    this.reloadContainerList();
+
+    console.log(this.selectedContainers);
+    console.log(this.blockedContainers);
+  }
+
+  reloadContainerList(){
+    this.selectedContainers = [];
+    this.selectedContainers = this.selectedElement.containersNames;
+
+    this.blockedContainers = [];
+    this.groups.forEach(gr=>{
+      if(gr.name != this.selectedElement.name){
+        gr.containersNames.forEach(cont=>{
+          this.blockedContainers.push(cont);
+        });
+      }
+    });
   }
 
   onNewElement(strClickedElement){
