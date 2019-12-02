@@ -77,16 +77,20 @@ export class SettingsPageComponent implements OnInit {
   }
 
   onSvuotaListaGruppi(){
-    this.appUtils.saveInLocalStorage(AppUtils.CONTAINER_GROUP_OBJ,null);
-    this.groupsNames = [];
-    this.groups = [];
-    this.selectedElement = null;
+    if(confirm("Stai per cancellare tutti i gruppi in modo permanente.")) {
+      console.log("Implement delete functionality here");
+      this.appUtils.saveInLocalStorage(AppUtils.CONTAINER_GROUP_OBJ,null);
+      this.groupsNames = [];
+      this.groups = [];
+      this.selectedElement = null;
+    }
   }
 
   onSalvaGruppi(gruppi:ContainerGroup[]){
     console.log("ONSALVAGRUPPI");
     console.log(gruppi);
     this.appUtils.saveInLocalStorage(AppUtils.CONTAINER_GROUP_OBJ,JSON.stringify(gruppi));
+    alert("Salvataggio effettuato.");
   }
 
 }

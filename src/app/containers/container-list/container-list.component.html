@@ -3,14 +3,15 @@
                 <!-- Custom -->
                 <div class="row" *ngIf="groupsToDisplay.size>0">
                         <div *ngFor="let group of groupsToDisplay | keyvalue"
-                        [ngClass]="{'col-6': useCol6, 'col': !useCol6}">
-                                <div class="bl-1 mb-5 border border-light  rounded b-2">
+                        [ngClass]="{'col-lg-6': useCol6, 'col-lg': !useCol6}"
+                        class="col-md-12">
+                                <div class=" bl-1 mb-5 border border-light  rounded b-2">
                                                 <div class="row align-items-center justify-content-center pointer-element" (click)="groupsVisibile.set(group.key, !groupsVisibile.get(group.key))">
-                                                                <h2>{{group.key}}</h2>
                                                                 <i *ngIf="!groupsVisibile.get(group.key); else minus" class="fas fa-plus black-text ml-2"></i>
                                                                 <ng-template #minus>
                                                                         <i class="fas fa-minus black-text ml-2"></i>
                                                                 </ng-template>
+                                                                <h2>{{group.key}}</h2>
                                                         </div>
                                                         <div [hidden]="!groupsVisibile.get(group.key)" *ngFor="let item of groupsToDisplay.get(group.key)">   
                                                                 <div class="col-12">
