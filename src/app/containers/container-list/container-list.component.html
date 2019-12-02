@@ -25,11 +25,11 @@
                 <!-- Generali -->
                 <div *ngIf="generalContainers.length>0">
                         <div class="row align-items-center justify-content-center pointer-element" (click)="showGeneral=!showGeneral"> 
-                                <h2>Generali</h2>
                                 <i *ngIf="!showGeneral; else minus" class="fas fa-plus black-text ml-2"></i>
                                 <ng-template #minus>
                                         <i class="fas fa-minus black-text ml-2"></i>
                                 </ng-template>
+                                <h2>Generali</h2>                      
                         </div>
                         <div *ngIf="showGeneral">
                                 <div *ngFor="let item of generalContainers">   

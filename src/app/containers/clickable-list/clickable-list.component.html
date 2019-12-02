@@ -1,8 +1,8 @@
 <div class="row w-100">
     <div *ngIf="stringsList != null && stringsList.length>0" class="col-12">
         <ul class="list-group">
-            <div *ngFor="let item of stringsList; let i = index">
-                <li class="list-group-item pointer-element" [class.active]="selectedIndex === i" (click)="onItemClick(item,i)">{{item}}</li>
+            <div *ngFor="let item of stringsList; let i  = index">
+                <li class="list-group-item pointer-element" [class.active]="selectedIndex == i" (click)="onItemClick(item,i)">{{item}}</li>
             </div>
         </ul>
     </div>

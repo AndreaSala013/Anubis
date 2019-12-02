@@ -67,6 +67,7 @@ export class SettingsPageComponent implements OnInit {
   }
 
   onNewElement(strClickedElement){
+    console.log("ONNEWELEMENT");
     let newGroup = new ContainerGroup();
     newGroup.name=strClickedElement;
     newGroup.containersNames = [];
@@ -74,6 +75,7 @@ export class SettingsPageComponent implements OnInit {
     this.groups.push(newGroup);
     this.selectedElement = newGroup;
     this.appUtils.saveInLocalStorage(AppUtils.CONTAINER_GROUP_OBJ, JSON.stringify(this.groups));
+    this.onClickedElement(strClickedElement);
   }
 
   onSvuotaListaGruppi(){

@@ -32,8 +32,8 @@ export class ClickableListComponent implements OnInit {
       if(this.stringsList == null || this.stringsList == undefined){
         this.stringsList = [];
       }
-      this.stringsList.unshift(strVal);
-      this.selectedIndex = 0;
+      this.stringsList.push(strVal);
+      this.selectedIndex = this.stringsList.length-1;
       this.newElement.emit(strVal);
     }
   }
