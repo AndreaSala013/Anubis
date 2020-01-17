@@ -15,8 +15,6 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class ContainerPageComponent implements OnInit {
 
-  divHover : boolean = false;
-
   searchInput : FormControl;
   searchChangeSub : Subscription;
   retry :boolean;
@@ -148,10 +146,6 @@ export class ContainerPageComponent implements OnInit {
       this.portainerServ.setCachedProxyResp(this.containerListAll);
       return true;
     }
-  }
-
-  mouseOverSearch(){
-    this.divHover = !this.divHover;
   }
 
 }

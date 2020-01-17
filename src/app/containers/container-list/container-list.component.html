@@ -4,8 +4,10 @@
                 <div class="row" *ngIf="groupsToDisplay.size>0">
                         <div *ngFor="let group of groupsToDisplay | keyvalue"
                         [ngClass]="{'col-lg-6': useCol6, 'col-lg': !useCol6}"
+                        (mouseenter)="group.hover=true"
+                        (mouseleave)="group.hover=false"
                         class="col-md-12">
-                                <div class=" bl-1 mb-5 border border-light  rounded b-2">
+                                <div class=" bl-1 mb-5 border border-light  rounded b-2" [ngClass]="{'z-depth-1': group.hover}">
                                                 <div class="row align-items-center justify-content-center pointer-element" (click)="groupsVisibile.set(group.key, !groupsVisibile.get(group.key))">
                                                                 <i *ngIf="!groupsVisibile.get(group.key); else minus" class="fas fa-plus black-text ml-2"></i>
                                                                 <ng-template #minus>
@@ -21,6 +23,7 @@
                                 </div>                  
                         </div>
                 </div>    
+                
                 
                 <!-- Generali -->
                 <div *ngIf="generalContainers.length>0">
