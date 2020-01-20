@@ -11,13 +11,13 @@
                 <div class="col-8">
                     <div class="md-form">
                         <mdb-icon fas icon="layer-group" class="prefix"></mdb-icon>
-                        <input mdbInput type="text" id="form1" class="form-control" #stringInput>
+                        <input mdbInput type="text" [(ngModel)]="stringInput" id="form1" class="form-control">
                         <label for="form1" class="">{{placeholderNew}}</label>
                         
                     </div>
                 </div>
                 <div class="col-2">
-                    <button type="button" class="btn btn-success px-3" (click)="addNew(stringInput.value)">
+                    <button type="button" class="btn btn-success px-3" (click)="addNew()">
                         <i class="fas fa-plus"></i>
                     </button>
                 </div>

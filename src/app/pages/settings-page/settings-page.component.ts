@@ -95,4 +95,12 @@ export class SettingsPageComponent implements OnInit {
     alert("Salvataggio effettuato.");
   }
 
+  onRemoveGruppo(gruppi:ContainerGroup[]){
+    console.log("ONREMOVEGRUPPO");
+    this.onSalvaGruppi(gruppi);
+
+    this.selectedElement = null;
+    this.reloadGroups();
+    this.reloadContainerList();
+  }
 }

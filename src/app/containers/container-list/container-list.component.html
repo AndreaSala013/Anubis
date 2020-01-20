@@ -26,17 +26,24 @@
                 
                 
                 <!-- Generali -->
-                <div *ngIf="generalContainers.length>0">
-                        <div class="row align-items-center justify-content-center pointer-element" (click)="showGeneral=!showGeneral"> 
-                                <i *ngIf="!showGeneral; else minus" class="fas fa-plus black-text ml-2"></i>
-                                <ng-template #minus>
-                                        <i class="fas fa-minus black-text ml-2"></i>
-                                </ng-template>
-                                <h2>Generali</h2>                      
-                        </div>
-                        <div *ngIf="showGeneral">
-                                <div *ngFor="let item of generalContainers">   
-                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+                <div class="row" *ngIf="generalContainers.length>0" >
+                        <div class="col-md-12 col-lg"
+                        (mouseenter)="hover=true"
+                        (mouseleave)="hover=false">
+                                <div  class="bl-1 mb-5 border border-light  rounded b-2" 
+                                [ngClass]="{'z-depth-1': hover}">
+                                        <div class="row align-items-center justify-content-center pointer-element" (click)="showGeneral=!showGeneral"> 
+                                                <i *ngIf="!showGeneral; else minus" class="fas fa-plus black-text ml-2"></i>
+                                                <ng-template #minus>
+                                                        <i class="fas fa-minus black-text ml-2"></i>
+                                                </ng-template>
+                                                <h2>Generali</h2>                      
+                                        </div>
+                                        <div *ngIf="showGeneral">
+                                                <div class="col-12" *ngFor="let item of generalContainers">   
+                                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+                                                </div>
+                                        </div>
                                 </div>
                         </div>
                 </div>     

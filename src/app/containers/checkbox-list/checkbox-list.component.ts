@@ -16,6 +16,7 @@ export class CheckboxListComponent implements OnInit {
   @Input('blockedContainers') blockedContainers : String[];
 
   @Output('gruppiSalvati') gruppiSalvati = new EventEmitter<ContainerGroup[]>();
+  @Output('gruppiSalvatiDopoRemove') gruppiSalvatiDopoRemove = new EventEmitter<ContainerGroup[]>();
 
   
   constructor() { }
@@ -31,7 +32,7 @@ export class CheckboxListComponent implements OnInit {
           this.blockedContainers.splice(index, 1);
       }     
     }else{
-      this.blockedContainers.push(container.name);
+      //this.blockedContainers.push(container.name);
       const index: number = this.selectedContainers.indexOf(container.name);
       if (index !== -1) {
           this.selectedContainers.splice(index, 1);
@@ -53,7 +54,14 @@ export class CheckboxListComponent implements OnInit {
   }
 
   eliminaGruppo(){
-    
+    let index : number;
+    for(let gr of this.allGroups){
+      if(gr.name == this.selectedGroup.name ){
+        index = this.allGroups.indexOf(gr);
+      }
+    }
+    this.allGroups.splice(index, 1);
+    this.gruppiSalvatiDopoRemove.emit(this.allGroups);
   }
 
 }
