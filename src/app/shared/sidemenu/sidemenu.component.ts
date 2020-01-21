@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import {PlatformLocation } from '@angular/common';
 import { AppUtils } from 'src/app/utils/AppUtils';
 import { KeycloakService } from 'src/app/services/keycloak.service';
 import { Router } from '@angular/router';
@@ -15,7 +16,8 @@ export class SidemenuComponent implements OnInit {
   constructor(
     private appUtils:AppUtils,
     private keyServ:KeycloakService,
-    private router:Router
+    private router:Router,
+    private platformLocation: PlatformLocation
   ) { }
 
   ngOnInit() {
@@ -29,7 +31,12 @@ export class SidemenuComponent implements OnInit {
   }
 
   reloadAnubis(){
-    location.replace("Home");
+    /*console.log("RELOAD_ANUBIS");
+    console.log((this.platformLocation as any).location);
+    console.log((this.platformLocation as any).location.href);
+    console.log((this.platformLocation as any).location.origin);*/
+    location.replace((this.platformLocation as any).location.href);
+
   }
 
 }
