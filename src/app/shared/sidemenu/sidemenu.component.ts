@@ -27,15 +27,16 @@ export class SidemenuComponent implements OnInit {
     console.log("HOMEPAGE: onLogout");
     this.appUtils.saveInLocalStorage(AppUtils.PORTAINER_TOKENS,null);
     this.keyServ.logout();
-    this.router.navigate(['']);
   }
 
   reloadAnubis(){
-    /*console.log("RELOAD_ANUBIS");
-    console.log((this.platformLocation as any).location);
+    console.log("RELOAD_ANUBIS");
+    let newUrl = ((this.platformLocation as any).location.href).split("Anubis")[0]+ "Anubis";
+    /*console.log((this.platformLocation as any).location);
     console.log((this.platformLocation as any).location.href);
-    console.log((this.platformLocation as any).location.origin);*/
-    location.replace((this.platformLocation as any).location.href);
+    console.log((this.platformLocation as any).location.origin);
+    console.log(newUrl);*/
+    location.replace(newUrl);
 
   }
 
