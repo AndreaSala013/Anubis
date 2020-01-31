@@ -4,20 +4,26 @@
                 <div class="row" *ngIf="groupsToDisplay.size>0">
                         <div *ngFor="let group of groupsToDisplay | keyvalue"
                         [ngClass]="{'col-lg-6': useCol6, 'col-lg': !useCol6}"
-                        (mouseenter)="group.hover=true"
-                        (mouseleave)="group.hover=false"
                         class="col-md-12">
-                                <div class=" bl-1 mb-5 border border-light  rounded b-2" [ngClass]="{'z-depth-1': group.hover}">
-                                                <div class="row align-items-center justify-content-center pointer-element" (click)="groupsVisibile.set(group.key, !groupsVisibile.get(group.key))">
-                                                                <i *ngIf="!groupsVisibile.get(group.key); else minus" class="fas fa-plus black-text ml-2"></i>
+                                <div class=" bl-1 mb-5 border border-light  rounded b-2" 
+                                (mouseenter)="group.hover=true"
+                                (mouseleave)="group.hover=false"
+                                [ngClass]="{'z-depth-1': group.hover}">
+                                                <div 
+                                                class="row align-items-center justify-content-center pointer-element" 
+                                                (click)="groupsVisibile.set(group.key, !groupsVisibile.get(group.key))">
                                                                 <ng-template #minus>
                                                                         <i class="fas fa-minus black-text ml-2"></i>
                                                                 </ng-template>
-                                                                <h2>{{group.key}}</h2>
+                                                                <h2><b>{{group.key}}</b></h2>
                                                         </div>
-                                                        <div [hidden]="!groupsVisibile.get(group.key)" *ngFor="let item of groupsToDisplay.get(group.key)">   
+                                                        <div [hidden]="!groupsVisibile.get(group.key)" *ngFor="let item of groupsToDisplay.get(group.key); let i = index">   
                                                                 <div class="col-12">
-                                                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+                                                                        <app-container-list-item 
+                                                                        (newState)=onNewContainerState($event)
+                                                                        [indexItem]="i" 
+                                                                        [container]="item">
+                                                                        </app-container-list-item>
                                                                 </div>
                                                         </div>
                                 </div>                  
@@ -33,15 +39,17 @@
                                 <div  class="bl-1 mb-5 border border-light  rounded b-2" 
                                 [ngClass]="{'z-depth-1': hover}">
                                         <div class="row align-items-center justify-content-center pointer-element" (click)="showGeneral=!showGeneral"> 
-                                                <i *ngIf="!showGeneral; else minus" class="fas fa-plus black-text ml-2"></i>
                                                 <ng-template #minus>
                                                         <i class="fas fa-minus black-text ml-2"></i>
                                                 </ng-template>
-                                                <h2>Generali</h2>                      
+                                                <h2><b>Generali</b></h2>                      
                                         </div>
                                         <div *ngIf="showGeneral">
-                                                <div class="col-12" *ngFor="let item of generalContainers">   
-                                                        <app-container-list-item (newState)=onNewContainerState($event) [container]="item"></app-container-list-item>
+                                                <div class="col-12" *ngFor="let item of generalContainers; let i = index">   
+                                                        <app-container-list-item 
+                                                        (newState)=onNewContainerState($event) 
+                                                        [indexItem]=i
+                                                        [container]="item"></app-container-list-item>
                                                 </div>
                                         </div>
                                 </div>

@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
 })
 export class ContainerListItemComponent implements OnInit {
 
+
+@Input('indexItem') indexItem:number;
 @Input('container') container:Container;
 @Output() newState = new EventEmitter<Container>();
 
