@@ -1,11 +1,9 @@
-<app-navbar [username]="username" (logout)="onLogout()"></app-navbar>
-<div class="row w-100 h-100">
-    <div class="col-1">
-        <app-sidemenu></app-sidemenu>
+<div class="row w-100 h-100 m-0">
+    <div class="col-1 pr-0">
+        <app-sidemenu [username]="username"></app-sidemenu>
     </div>
-    <div
-    class="col-11" 
-    style="border-left-style: solid;border-left-width: 2px;">
+    <div class="col-11">
+        <!--style="border-left-style: solid;border-left-width: 2px;"-->
         <router-outlet></router-outlet>
     </div>
 </div>

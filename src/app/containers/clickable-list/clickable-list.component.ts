@@ -17,24 +17,27 @@ export class ClickableListComponent implements OnInit {
   inputValue : string = null;
   selectedIndex : number;
 
+  stringInput : string;
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  addNew(strVal:string){
-    if(strVal == null || strVal == ""){
+  addNew(){
+    if(this.stringInput == null || this.stringInput == ""){
       alert("Input non corretto");
     }
-    else if(this.stringsList != null && this.stringsList != undefined && this.stringsList.includes(strVal)){
+    else if(this.stringsList != null && this.stringsList != undefined && this.stringsList.includes(this.stringInput)){
       alert("Valore già presente");
     }else{
       if(this.stringsList == null || this.stringsList == undefined){
         this.stringsList = [];
       }
-      this.stringsList.unshift(strVal);
-      this.selectedIndex = 0;
-      this.newElement.emit(strVal);
+      this.stringsList.push(this.stringInput);
+      this.selectedIndex = this.stringsList.length-1;
+      this.newElement.emit(this.stringInput);
+      this.stringInput = "";
     }
   }
 

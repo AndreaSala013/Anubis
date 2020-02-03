@@ -12,11 +12,12 @@
                 </div>
         </div>
         <ng-template #noContainer>
-            <p>Errore nel recupero dei container, ricaricare l'applicazione ( clicca sulla grande A gialla )</p>
+            <p>Errore nel recupero dei container, ricaricare l'applicazione </p>
         </ng-template>
         <div class="col-8 border-left" *ngIf="selectedElement!=null">
             <app-checkbox-list 
             (gruppiSalvati)="onSalvaGruppi($event)"
+            (gruppiSalvatiDopoRemove)="onRemoveGruppo($event)"
             [allGroups]="groups" 
             [allContainers]="containerList"
             [selectedContainers]="selectedContainers"

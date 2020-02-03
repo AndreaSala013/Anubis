@@ -7,5 +7,11 @@ html, body {
     cursor: pointer;
 }
 
+.overflow-y-300 {
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
 
 

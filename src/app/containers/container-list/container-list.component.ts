@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, SimpleChanges, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Container } from 'src/app/model/Container';
 import { PortainerService } from 'src/app/services/portainer.service';
 import { AppUtils } from 'src/app/utils/AppUtils';
 import { ContainerGroup } from 'src/app/model/ContainerGroup';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -45,7 +46,15 @@ export class ContainerListComponent implements OnInit {
         this.generalContainers.push(element);
       });
     }
+
+    if(this.groupsToDisplay != null && this.groupsToDisplay.size>1){
+      this.useCol6=true;
+    }else{
+      this.useCol6=false;
+    }
   }
+
+  useCol6 : boolean = false;
 
   groupsFromLocalStorage : ContainerGroup[];
   groupsToDisplay : Map<string,Container[]>;
@@ -60,7 +69,6 @@ export class ContainerListComponent implements OnInit {
     private portServ:PortainerService) { }
 
   ngOnInit() {
-    
   }
 
   checkLocalStorageForGroups(){

@@ -67,6 +67,7 @@ export class SettingsPageComponent implements OnInit {
   }
 
   onNewElement(strClickedElement){
+    console.log("ONNEWELEMENT");
     let newGroup = new ContainerGroup();
     newGroup.name=strClickedElement;
     newGroup.containersNames = [];
@@ -74,19 +75,32 @@ export class SettingsPageComponent implements OnInit {
     this.groups.push(newGroup);
     this.selectedElement = newGroup;
     this.appUtils.saveInLocalStorage(AppUtils.CONTAINER_GROUP_OBJ, JSON.stringify(this.groups));
+    this.onClickedElement(strClickedElement);
   }
 
   onSvuotaListaGruppi(){
-    this.appUtils.saveInLocalStorage(AppUtils.CONTAINER_GROUP_OBJ,null);
-    this.groupsNames = [];
-    this.groups = [];
-    this.selectedElement = null;
+    if(confirm("Stai per cancellare tutti i gruppi in modo permanente.")) {
+      console.log("Implement delete functionality here");
+      this.appUtils.saveInLocalStorage(AppUtils.CONTAINER_GROUP_OBJ,null);
+      this.groupsNames = [];
+      this.groups = [];
+      this.selectedElement = null;
+    }
   }
 
   onSalvaGruppi(gruppi:ContainerGroup[]){
     console.log("ONSALVAGRUPPI");
     console.log(gruppi);
     this.appUtils.saveInLocalStorage(AppUtils.CONTAINER_GROUP_OBJ,JSON.stringify(gruppi));
+    alert("Salvataggio effettuato.");
   }
 
+  onRemoveGruppo(gruppi:ContainerGroup[]){
+    console.log("ONREMOVEGRUPPO");
+    this.onSalvaGruppi(gruppi);
+
+    this.selectedElement = null;
+    this.reloadGroups();
+    this.reloadContainerList();
+  }
 }
