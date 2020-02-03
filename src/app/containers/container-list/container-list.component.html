@@ -1,49 +1,30 @@
 <div class="mt-3 w-100">
         <div *ngIf="!isLoading; else notLoading">
                 <!-- Custom -->
-                <div class="row" *ngIf="groupsToDisplay.size>0">
+                <div class="row mb-5" *ngIf="groupsToDisplay.size>0">
                         <div *ngFor="let group of groupsToDisplay | keyvalue"
                         [ngClass]="{'col-lg-6': useCol6, 'col-lg': !useCol6}"
                         class="col-md-12">
-                                <div class=" bl-1 mb-5 border border-light  rounded b-2" 
-                                (mouseenter)="group.hover=true"
-                                (mouseleave)="group.hover=false"
-                                [ngClass]="{'z-depth-1': group.hover}">
-                                                <div 
-                                                class="row align-items-center justify-content-center pointer-element" 
-                                                (click)="groupsVisibile.set(group.key, !groupsVisibile.get(group.key))">
-                                                                <ng-template #minus>
-                                                                        <i class="fas fa-minus black-text ml-2"></i>
-                                                                </ng-template>
-                                                                <h2><b>{{group.key}}</b></h2>
-                                                        </div>
-                                                        <div [hidden]="!groupsVisibile.get(group.key)" *ngFor="let item of groupsToDisplay.get(group.key); let i = index">   
-                                                                <div class="col-12">
+                                <app-accordion [contentHidden]="false" [title]="group.key">
+                                        <div [hidden]="!groupsVisibile.get(group.key)" *ngFor="let item of groupsToDisplay.get(group.key); let i = index">
+                                        <div class="col-12">
                                                                         <app-container-list-item 
-                                                                        (newState)=onNewContainerState($event)
-                                                                        [indexItem]="i" 
-                                                                        [container]="item">
+                                                                                (newState)=onNewContainerState($event)
+                                                                                [indexItem]="i" 
+                                                                                [container]="item">
                                                                         </app-container-list-item>
                                                                 </div>
-                                                        </div>
-                                </div>                  
+                                        </div>
+                                </app-accordion>
                         </div>
                 </div>    
                 
                 
                 <!-- Generali -->
                 <div class="row" *ngIf="generalContainers.length>0" >
-                        <div class="col-md-12 col-lg"
-                        (mouseenter)="hover=true"
-                        (mouseleave)="hover=false">
-                                <div  class="bl-1 mb-5 border border-light  rounded b-2" 
-                                [ngClass]="{'z-depth-1': hover}">
-                                        <div class="row align-items-center justify-content-center pointer-element" (click)="showGeneral=!showGeneral"> 
-                                                <ng-template #minus>
-                                                        <i class="fas fa-minus black-text ml-2"></i>
-                                                </ng-template>
-                                                <h2><b>Generali</b></h2>                      
-                                        </div>
+                        
+                        <div class="col-md-12 col-lg">
+                                <app-accordion [contentHidden]="false" [title]="'Generali'">
                                         <div *ngIf="showGeneral">
                                                 <div class="col-12" *ngFor="let item of generalContainers; let i = index">   
                                                         <app-container-list-item 
@@ -52,7 +33,7 @@
                                                         [container]="item"></app-container-list-item>
                                                 </div>
                                         </div>
-                                </div>
+                                </app-accordion>
                         </div>
                 </div>     
         </div>

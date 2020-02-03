@@ -15,12 +15,14 @@ import {
     trigger('showBody', [
       state('show', style({
       transition:"height 0.35s ease",
-      overflow:"hidden"
+      overflow:"hidden",
+      'margin-bottom':'15px'
       })),
       state('hide',   style({
         height:"0",
-      transition:"height 0.35s ease",
-      overflow:"hidden"
+        transition:"height 0.35s ease",
+        overflow:"hidden",
+        'margin-bottom':'0px'
       })),
       transition('show => hide', animate('0.3s ease-out')),
       transition('hide => show', animate('0.3s ease-in'))
