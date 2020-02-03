@@ -4,7 +4,7 @@ import { KeycloakService } from './services/keycloak.service';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {HttpClientModule} from '@angular/common/http';
 import { StorageServiceModule} from 'angular-webstorage-service';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -54,6 +54,7 @@ export function kcFactory(keycloakService: KeycloakService) {
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    BrowserAnimationsModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [

@@ -9,7 +9,7 @@
             <b>{{sign}}</b>
         </div>
     </div>
-    <div class="row accordionBody" *ngIf="!contentHidden">
+    <div class="row accordionBody" [@showBody]="stateName">
         <div class="col-12">
             <ng-content></ng-content>
         </div>
