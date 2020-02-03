@@ -1,0 +1,20 @@
+<div class="container-fluid border border-light  rounded" >
+    <div id="accordionTitle" class="row" 
+    [ngClass]="{'active': !contentHidden}"
+    (click)="onClick()">
+        <div class="col-11">
+            <b>{{title}}</b>
+        </div>
+        <div class="col-1 pr-0" style="text-align: center;">
+            <b>{{sign}}</b>
+        </div>
+    </div>
+    <div class="row accordionBody" *ngIf="!contentHidden">
+        <div class="col-12">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>
+
+
+

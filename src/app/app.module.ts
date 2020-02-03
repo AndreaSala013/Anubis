@@ -23,6 +23,7 @@ import { SidemenuComponent } from './shared/sidemenu/sidemenu.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { ClickableListComponent } from './containers/clickable-list/clickable-list.component';
 import { CheckboxListComponent } from './containers/checkbox-list/checkbox-list.component';
+import { AccordionComponent } from './shared/accordion/accordion.component';
 
 export function kcFactory(keycloakService: KeycloakService) {
   console.log("kcFACTORY");
@@ -43,7 +44,8 @@ export function kcFactory(keycloakService: KeycloakService) {
     SidemenuComponent,
     SettingsPageComponent,
     ClickableListComponent,
-    CheckboxListComponent
+    CheckboxListComponent,
+    AccordionComponent
   ],
   imports: [
     StorageServiceModule,
