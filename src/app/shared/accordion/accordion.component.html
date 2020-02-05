@@ -9,7 +9,10 @@
             <b>{{sign}}</b>
         </div>
     </div>
-    <div class="row accordionBody" [@showBody]="stateName">
+    <div class="row accordionBody" 
+    [@showBody]="{value: stateName, params:{bodyHeight: bodyHeight}}"
+    [ngClass]="{'overflow-auto': verticalOverflow}"
+    [ngStyle]="{height: bodyHeight!=null ? bodyHeight : '100%'}">
         <div class="col-12">
             <ng-content></ng-content>
         </div>

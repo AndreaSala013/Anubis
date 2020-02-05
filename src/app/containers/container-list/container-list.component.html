@@ -4,10 +4,14 @@
                 <div class="row mb-5" *ngIf="groupsToDisplay.size>0">
                         <div *ngFor="let group of groupsToDisplay | keyvalue"
                         [ngClass]="{'col-lg-6': useCol6, 'col-lg': !useCol6}"
-                        class="col-md-12">
-                                <app-accordion [contentHidden]="false" [title]="group.key">
+                        class="col-md-12 mb-3">
+                                <app-accordion 
+                                [contentHidden]="false" 
+                                [title]="group.key"
+                                [bodyHeight]="'240px'"
+                                [verticalOverflow]=true>
                                         <div [hidden]="!groupsVisibile.get(group.key)" *ngFor="let item of groupsToDisplay.get(group.key); let i = index">
-                                        <div class="col-12">
+                                                <div class="col-12">
                                                                         <app-container-list-item 
                                                                                 (newState)=onNewContainerState($event)
                                                                                 [indexItem]="i" 
@@ -24,7 +28,9 @@
                 <div class="row" *ngIf="generalContainers.length>0" >
                         
                         <div class="col-md-12 col-lg">
-                                <app-accordion [contentHidden]="false" [title]="'Generali'">
+                                <app-accordion 
+                                [contentHidden]="false" 
+                                [title]="'Generali'">
                                         <div *ngIf="showGeneral">
                                                 <div class="col-12" *ngFor="let item of generalContainers; let i = index">   
                                                         <app-container-list-item 

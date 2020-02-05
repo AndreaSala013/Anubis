@@ -16,8 +16,10 @@ import {
       state('show', style({
       transition:"height 0.35s ease",
       overflow:"hidden",
-      'margin-bottom':'15px'
-      })),
+      'height':'{{bodyHeight}}',
+      'margin-bottom':'15px',
+      'margin-top':'15px'
+      }),{ params:{bodyHeight:'1650px'}}),
       state('hide',   style({
         height:"0",
         transition:"height 0.35s ease",
@@ -33,6 +35,9 @@ export class AccordionComponent implements OnInit {
 
   @Input('title') title:string;
   @Input('contentHidden') contentHidden:boolean;
+  //facoltativi
+  @Input('bodyHeight') bodyHeight:string;
+  @Input('verticalOverflow') verticalOverflow:boolean;
   sign : string;
 
   constructor() { }
