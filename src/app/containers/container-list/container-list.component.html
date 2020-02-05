@@ -1,7 +1,7 @@
 <div class="mt-3 w-100">
         <div *ngIf="!isLoading; else notLoading">
                 <!-- Custom -->
-                <div class="row mb-5" *ngIf="groupsToDisplay.size>0">
+                <div class="row mb-3" *ngIf="groupsToDisplay.size>0">
                         <div *ngFor="let group of groupsToDisplay | keyvalue"
                         [ngClass]="{'col-lg-6': useCol6, 'col-lg': !useCol6}"
                         class="col-md-12 mb-3">
@@ -25,7 +25,7 @@
                 
                 
                 <!-- Generali -->
-                <div class="row" *ngIf="generalContainers.length>0" >
+                <div class="row mb-3" *ngIf="generalContainers.length>0" >
                         
                         <div class="col-md-12 col-lg">
                                 <app-accordion 

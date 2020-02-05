@@ -1,15 +1,15 @@
-<div class="row row-container align-items-center" 
+<div class="row align-items-center" 
     (click)="onClickItem()"
     (mouseover)="hover=true" 
     (mouseleave)="hover=false"
     [ngStyle]="{backgroundColor: hover==true  ? 'lightgrey' : indexItem%2 ? '#F0F0F0' : 'white'}">
-    <div class="col-6 row-container pointer-element">
+    <div class="col-6 pointer-element">
         <p class="m-2 font-weight-bold">{{container.name}}</p>
     </div>
-    <div class="col-3 row-container text-center pointer-element">
+    <div class="col-3 text-center pointer-element">
         <h4 class="m-1"><span class="badge badge-pill" [ngClass]="{'badge-success': isStopVisible ,'badge-danger': isPlayVisible}">{{container.status}}</span></h4>
     </div>
-    <div class="col-3 row-container text-center" (mouseover)=stopPropagationHover($event) (click)=stopPropagationClick($event)>
+    <div class="col-3 text-center" (mouseover)=stopPropagationHover($event) (click)=stopPropagationClick($event)>
             <div *ngIf="isPlayVisible" class="text-center">
                     <button mdbBtn (click)="buttonActionClick()"  class="btn-sm btn-outline-success" type="button" mdbWavesEffect disabled >
                         <mdb-icon fas icon="play" ></mdb-icon>
