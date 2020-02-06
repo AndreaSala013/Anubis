@@ -22,6 +22,9 @@ export class ClickableListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if(this.stringsList != null && this.stringsList.length>0){
+        this.onItemClick(this.stringsList[0], 0);
+    }
   }
 
   addNew(){
@@ -41,7 +44,7 @@ export class ClickableListComponent implements OnInit {
     }
   }
 
-  onItemClick(strVal:string, index:number){
+  onItemClick(strVal:String, index:number){
     this.selectedIndex = index;
     this.clickedElement.emit(strVal);
   }

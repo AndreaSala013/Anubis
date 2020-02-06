@@ -4,6 +4,7 @@ import { ProxyResponse } from '../model/ProxyResponse';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Container } from '../model/Container';
+import { AppUtils } from '../utils/AppUtils';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class PortainerService {
 
   private cachedContainerList : Container[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private appUtils:AppUtils) { }
 
   setCachedProxyResp(respDaSalvare : Container[]){
     this.cachedContainerList = respDaSalvare;
@@ -39,15 +41,12 @@ export class PortainerService {
     });
   }
 
-  getContainerList(jwtToken, filter):Promise<ProxyResponse> {
-    console.log("PORTAINERSERVICE: getContainerList");
-    console.log("jwt : " + jwtToken);
-    console.log("filter : " + filter);
-
+  getContainerList(jwtToken : string, filter : string):Promise<ProxyResponse> {
+    console.log("PORTAINERSERVICE: getContainerList->jwt :" + jwtToken + " ; filter : " + filter);
     let url = environment.urlDockerProxy + environment.methodListContainers;
     console.log(url);
     let params = new HttpParams()
-    .set("jwtToken", jwtToken)
+    .set("jwtToken", this.appUtils.removeDoubleQuotes(jwtToken))
     .set("filter",filter);  
     console.log(params);
     let headers = new HttpHeaders()

@@ -8,7 +8,7 @@
                                 <app-accordion 
                                 [contentHidden]="false" 
                                 [title]="group.key"
-                                [bodyHeight]="'240px'"
+                                [bodyHeight]="sizeCustom"
                                 [verticalOverflow]=true>
                                         <div [hidden]="!groupsVisibile.get(group.key)" *ngFor="let item of groupsToDisplay.get(group.key); let i = index">
                                                 <div class="col-12">
@@ -29,7 +29,9 @@
                         
                         <div class="col-md-12 col-lg">
                                 <app-accordion 
-                                [contentHidden]="false" 
+                                [contentHidden]="false"
+                                [bodyHeight]="sizeGeneral" 
+                                [verticalOverflow]=true
                                 [title]="'Generali'">
                                         <div *ngIf="showGeneral">
                                                 <div class="col-12" *ngFor="let item of generalContainers; let i = index">   

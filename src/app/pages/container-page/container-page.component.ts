@@ -15,6 +15,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class ContainerPageComponent implements OnInit {
 
+  divHover : boolean;
+
   searchInput : FormControl;
   searchChangeSub : Subscription;
   retry :boolean;

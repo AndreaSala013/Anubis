@@ -8,23 +8,25 @@
     </div>
     <div class="col-12">
             <div class="form-row align-items-center">
-                <div class="col-8">
+                <div class="col-12">
                     <div class="md-form">
                         <mdb-icon fas icon="layer-group" class="prefix"></mdb-icon>
                         <input mdbInput type="text" [(ngModel)]="stringInput" id="form1" class="form-control">
                         <label for="form1" class="">{{placeholderNew}}</label>
                         
                     </div>
-                </div>
-                <div class="col-2">
-                    <button type="button" class="btn btn-success px-3" (click)="addNew()">
-                        <em class="fas fa-plus"></em>
-                    </button>
-                </div>
-                <div class="col-2">
-                        <button type="button" mdbTooltip="Elimina tutto" placement="right" class="btn btn-danger px-3" (click)="svuotaLista()">
-                                <em class="fas fa-trash-alt"></em>
+                    <div class="row justify-content-center">
+                                <div class="col-2">
+                            <button type="button" class="btn btn-success px-3" (click)="addNew()">
+                                <em class="fas fa-plus"></em>
                             </button>
+                        </div>
+                        <div class="col-2">
+                                <button type="button" mdbTooltip="Elimina tutto" placement="right" class="btn btn-danger px-3" (click)="svuotaLista()">
+                                        <em class="fas fa-trash-alt"></em>
+                                    </button>
+                        </div>    
+                    </div>
                 </div>
             </div>
         </div>

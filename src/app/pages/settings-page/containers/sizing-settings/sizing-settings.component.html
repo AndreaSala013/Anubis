@@ -1,0 +1,30 @@
+<div class="row w-100">
+    <div class="col-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="md-form mb-0">
+                    <input mdbInput [(ngModel)]="sizeCustom" type="text" id="form58" class="form-control form-control-sm">
+                    <label for="form58">Size custom groups</label>
+                  </div>
+            </div>
+            <div class="col-12">
+                <div class="md-form">
+                    <input mdbInput [(ngModel)]="sizeGeneral" type="text" id="form58" class="form-control form-control-sm">
+                    <label for="form58">Size general groups</label>
+                  </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12 text-center">
+                <button type="button" mdbTooltip="Salva" placement="right" class="btn btn-success px-3 ml-2" (click)="salvaSize()">
+                    <em class="far fa-save fa"></em>
+                </button>
+                <button type="button" mdbTooltip="Elimina" placement="right" class="btn btn-danger px-3" (click)="resetSize()">
+                    <em class="fas fa-trash-alt fa"></em>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

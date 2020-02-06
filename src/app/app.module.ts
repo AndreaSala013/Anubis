@@ -24,6 +24,9 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
 import { ClickableListComponent } from './containers/clickable-list/clickable-list.component';
 import { CheckboxListComponent } from './containers/checkbox-list/checkbox-list.component';
 import { AccordionComponent } from './shared/accordion/accordion.component';
+import { SidemenuSettingsComponent } from './pages/settings-page/containers/sidemenu-settings/sidemenu-settings.component';
+import { GroupsSettingsComponent } from './pages/settings-page/containers/groups-settings/groups-settings.component';
+import { SizingSettingsComponent } from './pages/settings-page/containers/sizing-settings/sizing-settings.component';
 
 export function kcFactory(keycloakService: KeycloakService) {
   console.log("kcFACTORY");
@@ -45,7 +48,10 @@ export function kcFactory(keycloakService: KeycloakService) {
     SettingsPageComponent,
     ClickableListComponent,
     CheckboxListComponent,
-    AccordionComponent
+    AccordionComponent,
+    SidemenuSettingsComponent,
+    GroupsSettingsComponent,
+    SizingSettingsComponent
   ],
   imports: [
     StorageServiceModule,

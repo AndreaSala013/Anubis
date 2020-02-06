@@ -4,6 +4,7 @@ import { PortainerService } from 'src/app/services/portainer.service';
 import { AppUtils } from 'src/app/utils/AppUtils';
 import { ContainerGroup } from 'src/app/model/ContainerGroup';
 import { FormControl } from '@angular/forms';
+import { SettingObj } from 'src/app/model/SettingObj';
 
 
 @Component({
@@ -64,18 +65,38 @@ export class ContainerListComponent implements OnInit {
 
   isLoading: boolean;
 
+  sizeCustom : string;
+  sizeGeneral : string;
+
   constructor(
     private appUtils:AppUtils,
     private portServ:PortainerService) { }
 
   ngOnInit() {
+    this.setSizing();
+  }
+
+  setSizing(){
+    let settingsObj : SettingObj = this.appUtils.getSettingsFromLocalStorage(AppUtils.SETTINGS_OBJ);
+
+    if(settingsObj.sizeGenerali != null){
+      this.sizeGeneral = settingsObj.sizeGenerali + "px";
+    }else{
+      this.sizeGeneral = AppUtils.GENERAL_GROUP_SIZE + "px";
+    }
+
+    if(settingsObj.sizeGroups != null){
+      this.sizeCustom = settingsObj.sizeGroups + "px";
+    }else{
+      this.sizeCustom = AppUtils.CUSTOM_GROUP_SIZE + "px";
+    }
   }
 
   checkLocalStorageForGroups(){
-    let groupsStr = this.appUtils.getFromLocalStorage(AppUtils.CONTAINER_GROUP_OBJ);
+    let groupsObj = this.appUtils.getGroupsFromLocalStorage(AppUtils.SETTINGS_OBJ);
     //let groupsStr = '[{"name":"Axepta", "containersNames":["axepta-dcode-prod","axepta-dcode-developer"]},{"name":"Ubi", "containersNames":["ubi-river-x-online"]}]';
-    if(groupsStr != null && groupsStr != ""){
-      this.groupsFromLocalStorage = JSON.parse(groupsStr);
+    if(groupsObj != null && groupsObj.length>0){
+      this.groupsFromLocalStorage = groupsObj;
     }
   }
 
@@ -85,11 +106,11 @@ export class ContainerListComponent implements OnInit {
     let resp;
     if(container.status == AppUtils.CONTAINER_RUNNING){
       newState = AppUtils.CONTAINER_EXITED;
-      resp = await this.portServ.stopContainer(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS),container.id);
+      resp = await this.portServ.stopContainer(this.appUtils.getGroupsFromLocalStorage(AppUtils.PORTAINER_TOKENS),container.id);
     }
     else if(container.status == AppUtils.CONTAINER_EXITED){
       newState = AppUtils.CONTAINER_RUNNING;
-      resp = await this.portServ.startContainer(this.appUtils.getFromLocalStorage(AppUtils.PORTAINER_TOKENS),container.id);
+      resp = await this.portServ.startContainer(this.appUtils.getGroupsFromLocalStorage(AppUtils.PORTAINER_TOKENS),container.id);
     }
     console.log(resp);
     if(resp == null || ( resp.status != 200 && resp.status != 204)){
