@@ -27,6 +27,7 @@ import { AccordionComponent } from './shared/accordion/accordion.component';
 import { SidemenuSettingsComponent } from './pages/settings-page/containers/sidemenu-settings/sidemenu-settings.component';
 import { GroupsSettingsComponent } from './pages/settings-page/containers/groups-settings/groups-settings.component';
 import { SizingSettingsComponent } from './pages/settings-page/containers/sizing-settings/sizing-settings.component';
+import { DownloadUploadSettingsComponent } from './pages/settings-page/containers/download-upload-settings/download-upload-settings.component';
 
 export function kcFactory(keycloakService: KeycloakService) {
   console.log("kcFACTORY");
@@ -51,7 +52,8 @@ export function kcFactory(keycloakService: KeycloakService) {
     AccordionComponent,
     SidemenuSettingsComponent,
     GroupsSettingsComponent,
-    SizingSettingsComponent
+    SizingSettingsComponent,
+    DownloadUploadSettingsComponent
   ],
   imports: [
     StorageServiceModule,

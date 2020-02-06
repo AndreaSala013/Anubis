@@ -32,10 +32,6 @@ export class SidemenuComponent implements OnInit {
   reloadAnubis(){
     console.log("RELOAD_ANUBIS");
     let newUrl = ((this.platformLocation as any).location.href).split("Anubis")[0]+ "Anubis";
-    /*console.log((this.platformLocation as any).location);
-    console.log((this.platformLocation as any).location.href);
-    console.log((this.platformLocation as any).location.origin);
-    console.log(newUrl);*/
     location.replace(newUrl);
 
   }

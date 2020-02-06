@@ -7,6 +7,7 @@ import { ContainerPageComponent } from './pages/container-page/container-page.co
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { GroupsSettingsComponent } from './pages/settings-page/containers/groups-settings/groups-settings.component';
 import { SizingSettingsComponent } from './pages/settings-page/containers/sizing-settings/sizing-settings.component';
+import { DownloadUploadSettingsComponent } from './pages/settings-page/containers/download-upload-settings/download-upload-settings.component';
 
 const routes: Routes = [
   {path:'', component:HomePageComponent, children:[
@@ -15,7 +16,8 @@ const routes: Routes = [
     {path:'Settings', component:SettingsPageComponent, children:[
       {path:'', redirectTo:'Groups',pathMatch:'full'},
       {path:'Groups', component: GroupsSettingsComponent },
-      {path:'Sizing', component: SizingSettingsComponent }
+      {path:'Sizing', component: SizingSettingsComponent },
+      {path:'UpDown', component: DownloadUploadSettingsComponent }
     ]},
     {path:'Console', component:ConsolePageComponent}
   ]},
