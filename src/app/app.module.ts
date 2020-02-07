@@ -66,7 +66,6 @@ export function kcFactory(keycloakService: KeycloakService) {
     MDBBootstrapModule.forRoot()
   ],
   providers: [
-    KeycloakService,
     {
       provide: APP_INITIALIZER,
       useFactory: kcFactory,
