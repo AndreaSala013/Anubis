@@ -66,7 +66,10 @@ export class ContainerListComponent implements OnInit {
   isLoading: boolean;
 
   sizeCustom : string;
+  expandedCustom : boolean;
+
   sizeGeneral : string;
+  expandedGeneral : boolean;
 
   constructor(
     private appUtils:AppUtils,
@@ -79,17 +82,35 @@ export class ContainerListComponent implements OnInit {
   setSizing(){
     let settingsObj : SettingObj = this.appUtils.getSettingsFromLocalStorage(AppUtils.SETTINGS_OBJ);
 
-    if(settingsObj.sizeGenerali != null){
-      this.sizeGeneral = settingsObj.sizeGenerali + "px";
-    }else{
-      this.sizeGeneral = AppUtils.GENERAL_GROUP_SIZE + "px";
+    console.log(settingsObj);
+
+    let sizGen = AppUtils.GENERAL_GROUP_SIZE + "px";
+    let expGen = true;
+    let sizCus = AppUtils.CUSTOM_GROUP_SIZE + "px";
+    let expCus = true;
+
+    if(settingsObj.generalGroup != null ){
+      if(settingsObj.generalGroup.size != null){
+        sizGen = settingsObj.generalGroup.size + "px";
+      }
+      if(settingsObj.generalGroup.expanded != null){
+        expGen = settingsObj.generalGroup.expanded;
+      }
     }
 
-    if(settingsObj.sizeGroups != null){
-      this.sizeCustom = settingsObj.sizeGroups + "px";
-    }else{
-      this.sizeCustom = AppUtils.CUSTOM_GROUP_SIZE + "px";
+    if(settingsObj.customGroups != null){
+      if(settingsObj.customGroups.size != null){
+        sizCus = settingsObj.customGroups.size + "px";
+      }
+      if(settingsObj.customGroups.expanded != null){
+        expCus = settingsObj.customGroups.expanded
+      }
     }
+
+    this.sizeGeneral = sizGen;
+    this.expandedGeneral = expGen;
+    this.sizeCustom = sizCus;
+    this.expandedCustom = expCus;
   }
 
   checkLocalStorageForGroups(){

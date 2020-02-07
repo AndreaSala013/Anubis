@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppUtils } from 'src/app/utils/AppUtils';
-import { SettingObj } from 'src/app/model/SettingObj';
+import { SettingObj, SettingGroup } from 'src/app/model/SettingObj';
+import { CheckboxComponent } from 'angular-bootstrap-md';
 
 @Component({
   selector: 'app-sizing-settings',
@@ -9,25 +10,55 @@ import { SettingObj } from 'src/app/model/SettingObj';
 })
 export class SizingSettingsComponent implements OnInit {
 
+  @ViewChild('generalCheck', {static: false}) generalCheck: CheckboxComponent;
+  @ViewChild('customCheck', {static: false}) customCheck: CheckboxComponent;
+
   sizeCustom : number;
+  expandedCustom : boolean;
   sizeGeneral : number;
+  expandedGeneral : boolean;
+
 
   constructor(private appUtils:AppUtils) { }
 
   ngOnInit() {
+    let sizGen = AppUtils.GENERAL_GROUP_SIZE;
+    let expGen = true;
+    let sizCus = AppUtils.CUSTOM_GROUP_SIZE;
+    let expCus = true;
+
     let settingsObj : SettingObj = this.appUtils.getSettingsFromLocalStorage(AppUtils.SETTINGS_OBJ);
+    this.sizeGeneral = AppUtils.GENERAL_GROUP_SIZE;
+    this.sizeCustom = AppUtils.CUSTOM_GROUP_SIZE;
 
-    if(settingsObj.sizeGenerali != null){
-      this.sizeGeneral = settingsObj.sizeGenerali;
-    }else{
-      this.sizeGeneral = AppUtils.GENERAL_GROUP_SIZE;
+    if(settingsObj.generalGroup != null ){
+      if(settingsObj.generalGroup.size != null){
+        sizGen = settingsObj.generalGroup.size;
+      }
+      if(settingsObj.generalGroup.expanded != null){
+        expGen = settingsObj.generalGroup.expanded;
+      }
     }
 
-    if(settingsObj.sizeGroups != null){
-      this.sizeCustom = settingsObj.sizeGroups;
-    }else{
-      this.sizeCustom = AppUtils.CUSTOM_GROUP_SIZE;
+    if(settingsObj.customGroups != null){
+      if(settingsObj.customGroups.size != null){
+        sizCus = settingsObj.customGroups.size;
+      }
+      if(settingsObj.customGroups.expanded != null){
+        expCus = settingsObj.customGroups.expanded
+      }
     }
+
+
+    this.sizeGeneral = sizGen;
+    this.expandedGeneral = expGen;
+    this.sizeCustom = sizCus;
+    this.expandedCustom = expCus;
+  }
+
+  ngAfterViewInit() {
+    this.generalCheck.checked = this.expandedGeneral;
+    this.customCheck.checked = this.expandedCustom;
   }
 
   salvaSize(){
@@ -44,16 +75,43 @@ export class SizingSettingsComponent implements OnInit {
     }
 
     if(!errore){
-      this.appUtils.saveSizeInLocalStorage(AppUtils.SETTINGS_OBJ, this.sizeCustom, this.sizeGeneral);
+      this.appUtils.saveSettingsInLocalStorage(AppUtils.SETTINGS_OBJ, this.createCustomConfig(false), this.createGeneralConfig(false));
       alert("Salvataggio effettuato");
     }
   }
 
-  resetSize(){
-    if(confirm("Stai per ripristinare le dimensioni di default.")) {
+  resetSettings(){
+    if(confirm("Stai per ripristinare i setting di default di default.")) {
       this.sizeCustom = AppUtils.CUSTOM_GROUP_SIZE;
       this.sizeGeneral = AppUtils.GENERAL_GROUP_SIZE;
-      this.appUtils.saveSizeInLocalStorage(AppUtils.SETTINGS_OBJ, this.sizeCustom, this.sizeGeneral);
+      this.appUtils.saveSettingsInLocalStorage(AppUtils.SETTINGS_OBJ,  this.createCustomConfig(true), this.createGeneralConfig(true));
     }
   }
+
+  createCustomConfig(defualt:boolean):SettingGroup{
+    let x = new SettingGroup;
+    if(defualt){
+      x.size = AppUtils.CUSTOM_GROUP_SIZE;
+      x.expanded = true;
+    }
+    else{
+      x.size = this.sizeCustom;
+      x.expanded = this.customCheck.checked;
+    }
+    return x;
+  }
+
+  createGeneralConfig(defualt:boolean):SettingGroup{
+    let x = new SettingGroup;
+    if(defualt){
+      x.size = AppUtils.GENERAL_GROUP_SIZE;
+      x.expanded = true;
+    }else{
+      x.size = this.sizeGeneral;
+      x.expanded = this.generalCheck.checked;
+    }
+    return x;
+  }
+
+  
 }

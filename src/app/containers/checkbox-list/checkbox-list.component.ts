@@ -11,7 +11,21 @@ export class CheckboxListComponent implements OnInit {
 
   @Input('selectedGroup') selectedGroup:ContainerGroup;
   @Input('allGroups') allGroups : ContainerGroup[];
-  @Input('allContainers') allContainers : Container[];
+
+  public allContainers : Container[];
+  @Input('allContainers') 
+  set setAllContainers(value: Container[]){
+    if(value != null && value.length > 0){
+      this.allContainers = value;
+      this.allContainers.sort((a,b)=>{
+        if(a.name>b.name){
+          return 1;
+        }else{
+          return -1;
+        }
+      });
+    }
+  }
   @Input('selectedContainers') selectedContainers : String[];
   @Input('blockedContainers') blockedContainers : String[];
 

@@ -6,7 +6,7 @@
                         [ngClass]="{'col-lg-6': useCol6, 'col-lg': !useCol6}"
                         class="col-md-12 mb-3">
                                 <app-accordion 
-                                [contentHidden]="false" 
+                                [contentHidden]="!expandedCustom" 
                                 [title]="group.key"
                                 [bodyHeight]="sizeCustom"
                                 [verticalOverflow]=true>
@@ -29,7 +29,7 @@
                         
                         <div class="col-md-12 col-lg">
                                 <app-accordion 
-                                [contentHidden]="false"
+                                [contentHidden]="!expandedGeneral"
                                 [bodyHeight]="sizeGeneral" 
                                 [verticalOverflow]=true
                                 [title]="'Generali'">

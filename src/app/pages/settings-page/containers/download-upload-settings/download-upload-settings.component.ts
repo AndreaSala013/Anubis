@@ -28,4 +28,11 @@ export class DownloadUploadSettingsComponent implements OnInit {
     }
   }
 
+  reset(){
+    if(confirm("Stai per cancellare i settings.")) {
+      this.settings = "{}";
+      this.appUtils.saveInLocalStorage(AppUtils.SETTINGS_OBJ,JSON.parse(this.settings));
+    }
+  }
+
 }

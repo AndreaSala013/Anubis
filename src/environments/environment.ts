@@ -23,7 +23,9 @@ export const environment = {
   methodListContainers : "/listContainers",
   methodStartContainers : "/startContainer",
   methodStopContainers : "/stopContainer",
-  dastanUrl : "http://app.dastan.eng.it/"
+  dastanUrl : "http://app.dastan.eng.it/",
+
+  useMock:true
 };
 
 /*

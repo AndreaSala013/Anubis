@@ -1,6 +1,6 @@
 import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 import { Inject, Injectable } from '@angular/core';
-import { SettingObj } from '../model/SettingObj';
+import { SettingObj, SettingGroup } from '../model/SettingObj';
 import { ContainerGroup } from '../model/ContainerGroup';
 
 @Injectable({
@@ -33,11 +33,11 @@ export class AppUtils{
         this.storage.set(key, JSON.stringify(value));
     }
 
-    public saveSizeInLocalStorage(key:string, sizeCustom:number, sizeGeneral:number){
+    public saveSettingsInLocalStorage(key:string, customeSett:SettingGroup, generalSett:SettingGroup){
         console.log("APPUTILS:saveSizeInLocalStorage->key : " + key);
         let settingsObj : SettingObj = this.getSettingsFromLocalStorage(key);
-        settingsObj.sizeGroups = sizeCustom;
-        settingsObj.sizeGenerali = sizeGeneral;
+        settingsObj.customGroups = customeSett;
+        settingsObj.generalGroup = generalSett;
         this.storage.set(key, JSON.stringify(settingsObj));
     }
 
